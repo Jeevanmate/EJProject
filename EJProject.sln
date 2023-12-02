@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EJProject.Server", "EJProject\Server\EJProject.Server.csproj", "{EFA367FB-F705-496D-A858-F718938CB038}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EJProject.Server", "EJProject\Server\EJProject.Server.csproj", "{EFA367FB-F705-496D-A858-F718938CB038}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EJProject.Client", "EJProject\Client\EJProject.Client.csproj", "{5DA00D7C-2A53-4ED6-B913-6C70DFE8CE32}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EJProject.Client", "EJProject\Client\EJProject.Client.csproj", "{5DA00D7C-2A53-4ED6-B913-6C70DFE8CE32}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EJProject.Shared", "EJProject\Shared\EJProject.Shared.csproj", "{4D4B22BC-7C89-4A65-9A68-01C15EC801C6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EJProject.Shared", "EJProject\Shared\EJProject.Shared.csproj", "{4D4B22BC-7C89-4A65-9A68-01C15EC801C6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -15,6 +15,9 @@ main {
 h1{
     background-color : lightblue;
 }
+p{
+    font-family:'Times New Roman', Times, serif;
+}
 
 .top-row {
     background-color: #f7f7f7;
