@@ -3,4 +3,32 @@
 <h5> Post your listings here</h5>
 @code {
 
+   
+
 }
+
+<form action="/listitem_page.php">
+    <label for="pname">Product name: </label>
+    <input type="text" id="pname" name="pname"><br><br>
+
+    <label for="categories">Choose a Category:</label>
+    <select name="categories" id="categories">
+        <option value="fashion">Fashion</option>
+        <option value="electronics">Electronics</option>
+        <option value="shoes">Shoes</option>
+        <option value="toys">Toys/Games</option>
+    </select><br><br>
+
+    <label for="pdesc">Description of Product(features, condition etc.): </label>
+    <input type="text" id="pdesc" name="pdesc"><br><br>
+
+    <label for="price">Price($):  </label>
+    <input type="text" id="price" name="price"><br><br>
+
+    <label for="location">Preferred Meetup Location:  </label>
+    <input type="text" id="location" name="location"><br><br>
+
+    <input type="submit" value="List product">
+</form>
+
+<p>Click on the button to list your product!</p>
