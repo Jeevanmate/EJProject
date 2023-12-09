@@ -1,6 +1,151 @@
 ﻿@page "/PostListingsPage"
 
+<PageTitle>Post Listings</PageTitle>
 
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Post Listing</title>
+    <style>  	 
+	    div#d1{
+            position: relative;
+            width: 100%;
+            height: 100px;
+            border: 5px solid #000;
+            color: black;
+            font-weight: bold;
+            text-align: left;
+            background-color: #E0BBE4;
+        }
+		div#d2{
+            position: relative;
+            width: 100%;
+            height: 100px;
+            border: 5px solid #000;
+            color: black;
+            font-weight: bold;
+            text-align: left;
+            background-color: #957DAD;
+			}
+		div#d3{
+            position: relative;
+            width: 100%;
+            height: 100px;
+            border: 5px solid #000;
+            color: black;
+            font-weight: bold;
+            text-align: left;
+            background-color: #D291BC;
+				}
+		div#d4{
+            position: relative;
+            width: 100%;
+            height: 100px;
+            border: 5px solid #000;
+            color: black;
+            font-weight: bold;
+            text-align: left;
+            background-color: #FEC8D8;
+				}
+
+        div#d5 {
+            position: relative;
+            width: 100%;
+            height: 100px;
+            border: 5px solid #000;
+            color: black;
+            font-weight: bold;
+            text-align: left;
+            background-color: #FFDFD3;
+        }
+
+        div#d6 {
+            position: relative;
+            width: 100%;
+            height: 100px;
+            border: 5px solid #000;
+            color: black;
+            font-weight: bold;
+            text-align: left;
+            background-color: #E0BBE4;
+        }
+ 	 	 
+ 	 	</style>  
+</head>
+
+
+<body>
+    <h3>PostListings</h3>
+    <h5>Post your listings here</h5>
+    <div class="container">
+        <form action="/listitem_page.php">
+            <div id="d1">
+            <label for="pname">Product name: </label>
+            <input type="text" id="pname" name="pname" placeholder="Product Name.." size="50"><br><br>
+        </div>
+        <div id="d2">
+        <label for="categories">Choose a Category:</label>
+            <select name="categories" id="categories" placeholder="Select Category">
+                <option value="fashion">Fashion</option>
+                <option value="electronics">Electronics</option>
+                <option value="shoes">Shoes</option>
+                <option value="toys">Toys/Games</option>
+            </select><br><br>
+            </div>
+            <div id="d3">
+            <!-- File input for image selection -->
+            <input type="file" id="imageInput" accept="image/*">
+
+            <!-- Display the selected image -->
+            <img id="selectedImage" alt="Selected Image">
+
+            <script>
+                // JavaScript code to handle image upload
+                document.getElementById('imageInput').addEventListener('change', function (event) {
+                    // Get the selected file from the input
+                    var selectedFile = event.target.files[0];
+
+                    // Check if a file was selected
+                    if (selectedFile) {
+                        // Create a FileReader to read the selected file
+                        var reader = new FileReader();
+
+                        // Set up the FileReader to update the image source when the file is loaded
+                        reader.onload = function (e) {
+                            // Get the img element by its ID
+                            var imgElement = document.getElementById('selectedImage');
+
+                            // Update the src attribute with the data URL of the selected image
+                            imgElement.src = e.target.result;
+                        };
+
+                        // Read the selected file as a data URL
+                        reader.readAsDataURL(selectedFile);
+                    }
+                });
+            </script>
+            <br><br>
+            </div>
+            <div id="d4">
+
+            <label for="pdesc">Description of Product: </label>
+            <textarea id="pdesc" name="pdesc" placeholder="Description(features, condition etc.)" style="width:450px">
+                </textarea><br><br>
+            </div>
+            <div id="d5">
+            <label for="price">Price($):  </label>
+            <input type="text" id="price" name="price" placeholder="Price"><br><br>
+            </div>
+            <div id="d6">
+            <label for="location">Preferred Meetup Location:  </label>
+            <input type="text" id="location" name="location" placeholder="Meetup Location(Address/Area)" size="50"><br><br>
+            </div>
+            <input type="submit" value="List product">
+        </form>
+    </div>
+</body>
+</html>
 
 @code {
 
