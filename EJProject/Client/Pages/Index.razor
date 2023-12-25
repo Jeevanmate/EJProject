@@ -8,7 +8,16 @@
     <meta charset="utf-8">
     <title>Homepage</title>
     <style>
-        body {
+        body{
+            background-color: black;
+        }
+        div#D1{
+            background-color: #48CAE4;
+        }
+        div #D2{
+            background-color : white;
+        }
+        div#D3{
             background-color: #48CAE4;
         }
         .Logo{
@@ -23,43 +32,47 @@
     </style>
 </head>
 <body>
-    <img src="E&J Logo.jpg" alt="E&J Logo" class = "Logo" />
-    <h1>EJ S&T : Sell and Swap Platform</h1>
+    <div id = "D1">
+        <img src="E&J Logo.jpg" alt="E&J Logo" class="Logo" />
+        <h1>EJ S&T : Sell and Swap Platform</h1>
 
-    <h2>Welcome to E&J Sell&Swap App</h2>
+        <h2>Welcome to E&J Sell&Swap App</h2>
 
-         <form action="/search" method="get">
-        <label for="searchInput">Search:</label>
-        <input type="search" id="searchInput" name="q" placeholder="Search here" />
-        <button type="submit">Search</button>
-    </form>
-
-
-    <p> Still holding on to pre-loved items in good condition? Sell them here</p>
-    <button onclick="window.location.href = 'https://localhost:44362/PostListingsPage';"> Sell here </button>
+        <form action="/ListingsPage" method="get">
+            <label for="searchInput">Search:</label>
+            <input type="search" id="searchInput" name="q" placeholder="Search here" />
+            <button type="submit">Search</button>
+        </form>
 
 
-    <h4>Popular Listings</h4>
+        <p> Still holding on to pre-loved items in good condition? Sell them here</p>
+        <button onclick="window.location.href = 'https://localhost:44362/PostListingsPage';"> Sell here </button>
+    </div>
+   
 
+    <div id="D2">
+        <h4>Popular Listings</h4>
+        <h4>Why EJ?</h4>
 
-    <h4>Why EJ?</h4>
+        <p>We have excellent reviews by our friendly users!</p>
+    </div>
+   <div id="D3">
+        <a>
+            <img src="Reviews.jpg" alt="Failed review icon" width="150" height="160" />
 
-    <p>We have excellent reviews by our friendly users!</p>
-    <a>
-        <img src="Reviews.jpg" alt="Failed review icon" width="150" height="160" />
+        </a>
+        <SurveyPrompt Title="Enjoy our website? Leave a review so we can satisfy our customers" />
 
-    </a>
-    <SurveyPrompt Title="Enjoy our website? Leave a review so we can satisfy our customers" />
+        <p>Your safety is ensured as we protect you from scams/susipicous listings!</p>
+        <a>
+            <img src="Safety.jpg" alt=" Failed safety icon" width=" 150" height="160">
+        </a>
+        <p> The process is simple and hassle-free. Just chat here with your buyer/seller and arrange your deal conveniently</p>
+        <a>
+            <img src="Easy.jpg" alt=" Failed easy icon" width="150" height="160">
+        </a>
+   </div>
     
-    
-    <p>Your safety is ensured as we protect you from scams/susipicous listings!</p>
-    <a>
-        <img src="Safety.jpg" alt=" Failed safety icon" width=" 150" height="160">
-    </a>
-    <p> The process is simple and hassle-free. Just chat here with your buyer/seller and arrange your deal conveniently</p>
-    <a>
-        <img src="Easy.jpg" alt=" Failed easy icon" width="150" height="160">
-    </a>
 </body>
 </html>
 
