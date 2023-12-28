@@ -8,71 +8,90 @@
     <meta charset="utf-8">
     <title>Homepage</title>
     <style>
-        body{
-            background-color: black;
+        body {
+            background-color: lightgray;
         }
-        div#D1{
+
+        #D1 {
             background-color: #48CAE4;
         }
-        div #D2{
-            background-color : white;
+      
+        #D2 {
+            background-color: #3C99DC;
+            border-radius: 25px;
+            padding: 20px;
+            width: 400px;
+            height: 80px;
+            margin-bottom:20px;
         }
-        div#D3{
+
+
+        #D3, #D4, #D5 {
+            display: inline-block;
+            vertical-align: top;
             background-color: #48CAE4;
+            width: 300px;
+            height: 150px;
+            margin-right: 10px;
         }
-        .Logo{
+
+        .Logo {
             border-radius: 50%;
-            width: 150px; 
-            height: 160px; 
+            width: 150px;
+            height: 160px;
             object-fit: cover;
         }
-        p{
-            font-size: 18px;
+
+        p {
+            font-size: 13px;
         }
     </style>
 </head>
 <body>
-    <div id = "D1">
+    <div id="D1">
         <img src="E&J Logo.jpg" alt="E&J Logo" class="Logo" />
         <h1>EJ S&T : Sell and Swap Platform</h1>
-
         <h2>Welcome to E&J Sell&Swap App</h2>
-
         <form action="/ListingsPage" method="get">
             <label for="searchInput">Search:</label>
             <input type="search" id="searchInput" name="q" placeholder="Search here" />
             <button type="submit">Search</button>
         </form>
-
-
-        <p> Still holding on to pre-loved items in good condition? Sell them here</p>
-        <button onclick="window.location.href = 'https://localhost:44362/PostListingsPage';"> Sell here </button>
+        <p>Still holding on to pre-loved items in good condition? Sell them here</p>
+        <button onclick="window.location.href = 'https://localhost:44362/PostListingsPage';">Sell here</button>
     </div>
+
+    <h4>Popular Listings</h4>
+
    
-
     <div id="D2">
-        <h4>Popular Listings</h4>
-        <h4>Why EJ?</h4>
-
-        <p>We have excellent reviews by our friendly users!</p>
+            <h4>Why EJ?</h4>
+            <p>We have excellent reviews by our friendly users!</p>
     </div>
-   <div id="D3">
+    <div id="D3">
         <a>
-            <img src="Reviews.jpg" alt="Failed review icon" width="150" height="160" />
+            <img src="Reviews.jpg" alt="Failed review icon" width="150" height="90" />
+        </a>
+       
+        <p>Enjoy our website? Leave a review so we can satisfy our customers</p>
+    </div>
 
+    <div id="D4">
+        <a>
+            <img src="Safety.jpg" alt="Failed safety icon" width="150" height="90">
         </a>
-        <SurveyPrompt Title="Enjoy our website? Leave a review so we can satisfy our customers" />
+        <p>Your safety is ensured as we protect you from scams/suspicious listings!</p>
+        
+    </div>
 
-        <p>Your safety is ensured as we protect you from scams/susipicous listings!</p>
+    <div id="D5">
         <a>
-            <img src="Safety.jpg" alt=" Failed safety icon" width=" 150" height="160">
+            <img src="Easy.jpg" alt="Failed easy icon" width="150" height="90">
         </a>
-        <p> The process is simple and hassle-free. Just chat here with your buyer/seller and arrange your deal conveniently</p>
-        <a>
-            <img src="Easy.jpg" alt=" Failed easy icon" width="150" height="160">
-        </a>
-   </div>
-    
+        <p>The process is simple and hassle-free. Just chat here with your buyer/seller and arrange your deal conveniently</p>
+        
+    </div>
 </body>
 </html>
+
 
