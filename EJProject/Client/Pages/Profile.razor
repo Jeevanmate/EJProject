@@ -1,10 +1,35 @@
 ﻿@page "/ProfilePage"
 
-<h3>Profile</h3>
-<h5>Welcome to your profile page. You are Welcomed</h5>
-<h5>insert pic</h5>
+<h5>Welcome to your profile page</h5>
 
 
-@code {
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Profile</title>
+    <style>
+        #D1 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            height: 35vh; /*the percentage amount that the div is taking up of this whole webpage*/
+            background-color:#EB8AFD ;
+        }
 
-}
+     
+    </style>
+</head>
+
+<body>
+    <div id="D1">
+        <h3>My Profile</h3> 
+        <p>Bio/About me</p>
+        <button onclick="window.location.href = 'https://localhost:44362/PostListingsPage';" > Edit profile </button>
+        <button onclick="window.location.href = 'https://localhost:44362/PostListingsPage';"> Create profile </button>
+
+    </div>
+   
+</body>
+</html>
