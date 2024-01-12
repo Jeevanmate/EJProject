@@ -18,5 +18,10 @@ namespace EJProject.Shared.Domain
         public string? Condition { get; set; }
         public string? Description { get; set; }
 
+        public virtual Buyer? Buyer { get; set; }
+        public int BuyerID { get; set; }
+
+        public virtual Seller? Seller { get; set; }
+        public int SellerID { get; set; }
     }
 }

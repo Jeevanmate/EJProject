@@ -10,5 +10,11 @@ namespace EJProject.Shared.Domain
     {   public int StaffID { get; set; }
         public string? Gender {  get; set; }
         public string? Position {  get; set; }
+
+        public virtual Buyer? Buyer { get; set; }
+        public int BuyerID { get; set; }
+
+        public virtual Seller? Seller { get; set; }
+        public int SellerID { get; set; }
     }
 }
