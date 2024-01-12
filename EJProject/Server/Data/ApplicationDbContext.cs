@@ -1,5 +1,6 @@
 ﻿using Duende.IdentityServer.EntityFramework.Options;
 using EJProject.Server.Models;
+using EJProject.Shared.Domain;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -13,5 +14,17 @@ namespace EJProject.Server.Data
             IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
         {
         }
+
+        public DbSet<Buyer> Buyers { get; set; }
+        public DbSet<Product> Products { get; set; }
+
+        public DbSet<Seller> Sellers { get; set; }
+
+        public DbSet<Staff> Staffs { get; set; }
+        public DbSet<Trade> Trades{ get; set; }
+
+       
+
+
     }
 }

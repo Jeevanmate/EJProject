@@ -15,6 +15,10 @@ namespace EJProject.Shared.Domain
         public virtual Seller Seller { get; set; }
         public int SellerID { get; set; }
 
+        public virtual List<Product>? Products { get; set; }
+        public virtual List<Trade> Trades { get; set; }
 
+
+     
     }
 }

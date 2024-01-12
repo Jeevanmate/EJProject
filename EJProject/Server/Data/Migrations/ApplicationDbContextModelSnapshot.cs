@@ -234,6 +234,155 @@ namespace EJProject.Server.Data.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("EJProject.Shared.Domain.Buyer", b =>
+                {
+                    b.Property<int>("BuyerID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BuyerID"));
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PhoneNumber")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SellerID")
+                        .HasColumnType("int");
+
+                    b.HasKey("BuyerID");
+
+                    b.HasIndex("SellerID");
+
+                    b.ToTable("Buyers");
+                });
+
+            modelBuilder.Entity("EJProject.Shared.Domain.Product", b =>
+                {
+                    b.Property<int>("ProductID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductID"));
+
+                    b.Property<int>("BuyerID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Category")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Condition")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float?>("Price")
+                        .HasColumnType("real");
+
+                    b.Property<string>("ProductName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SellerID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductID");
+
+                    b.HasIndex("BuyerID");
+
+                    b.HasIndex("SellerID");
+
+                    b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("EJProject.Shared.Domain.Seller", b =>
+                {
+                    b.Property<int>("SellerId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SellerId"));
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PhoneNumber")
+                        .HasColumnType("int");
+
+                    b.HasKey("SellerId");
+
+                    b.ToTable("Sellers");
+                });
+
+            modelBuilder.Entity("EJProject.Shared.Domain.Staff", b =>
+                {
+                    b.Property<int>("StaffID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StaffID"));
+
+                    b.Property<int>("BuyerID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Gender")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Position")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SellerID")
+                        .HasColumnType("int");
+
+                    b.HasKey("StaffID");
+
+                    b.HasIndex("BuyerID");
+
+                    b.HasIndex("SellerID");
+
+                    b.ToTable("Staffs");
+                });
+
+            modelBuilder.Entity("EJProject.Shared.Domain.Trade", b =>
+                {
+                    b.Property<int>("TradeID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TradeID"));
+
+                    b.Property<int>("BuyerID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Location")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PaymentMethod")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TradeName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("TradeID");
+
+                    b.HasIndex("BuyerID");
+
+                    b.ToTable("Trades");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -371,6 +520,66 @@ namespace EJProject.Server.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("EJProject.Shared.Domain.Buyer", b =>
+                {
+                    b.HasOne("EJProject.Shared.Domain.Seller", "Seller")
+                        .WithMany()
+                        .HasForeignKey("SellerID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Seller");
+                });
+
+            modelBuilder.Entity("EJProject.Shared.Domain.Product", b =>
+                {
+                    b.HasOne("EJProject.Shared.Domain.Buyer", "Buyer")
+                        .WithMany("Products")
+                        .HasForeignKey("BuyerID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EJProject.Shared.Domain.Seller", "Seller")
+                        .WithMany("Products")
+                        .HasForeignKey("SellerID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Buyer");
+
+                    b.Navigation("Seller");
+                });
+
+            modelBuilder.Entity("EJProject.Shared.Domain.Staff", b =>
+                {
+                    b.HasOne("EJProject.Shared.Domain.Buyer", "Buyer")
+                        .WithMany()
+                        .HasForeignKey("BuyerID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EJProject.Shared.Domain.Seller", "Seller")
+                        .WithMany()
+                        .HasForeignKey("SellerID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Buyer");
+
+                    b.Navigation("Seller");
+                });
+
+            modelBuilder.Entity("EJProject.Shared.Domain.Trade", b =>
+                {
+                    b.HasOne("EJProject.Shared.Domain.Buyer", "Buyer")
+                        .WithMany("Trades")
+                        .HasForeignKey("BuyerID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Buyer");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -420,6 +629,18 @@ namespace EJProject.Server.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("EJProject.Shared.Domain.Buyer", b =>
+                {
+                    b.Navigation("Products");
+
+                    b.Navigation("Trades");
+                });
+
+            modelBuilder.Entity("EJProject.Shared.Domain.Seller", b =>
+                {
+                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

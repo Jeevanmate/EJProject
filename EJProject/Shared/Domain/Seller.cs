@@ -15,5 +15,7 @@ namespace EJProject.Shared.Domain
 
         public string? Email { get; set; }
 
+        public virtual List<Product>? Products { get; set; }
+
     }
 }
