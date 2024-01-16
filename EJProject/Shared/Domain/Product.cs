@@ -21,7 +21,6 @@ namespace EJProject.Shared.Domain
         public virtual Buyer? Buyer { get; set; }
         public int BuyerID { get; set; }
 
-        public virtual Seller? Seller { get; set; }
-        public int SellerID { get; set; }
+      
     }
 }
