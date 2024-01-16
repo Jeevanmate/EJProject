@@ -1,5 +1,8 @@
-﻿
+﻿    
 @page "/PostListingsPage"
+@inject HttpClient _client
+@inject IJSRuntime js
+@attribute [Authorize]
 <PageTitle>Post Listings</PageTitle>
  
  <!DOCTYPE html>
@@ -78,8 +81,7 @@
 
 
  <body>
-      <h3>PostListings</h3>
-      <h5>Post your listings here</h5>
+      <h3>Post New Listings</h3>
       <div class="container">
        <form action="/listitem_page.php">
         <div id="d1">
