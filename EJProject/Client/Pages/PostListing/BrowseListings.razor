@@ -1,0 +1,115 @@
+﻿@page "/ListingsPage"
+@inject HttpClient _client
+@inject IJSRuntime js
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Listings</title>
+    <style>
+        #D1 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            height: 35vh; /*the percentage amount that the div is taking up of this whole webpage*/
+            background-color: #F1b04c;
+           
+        }
+
+        #D2 {
+            background-color: #F5C77E;
+            border-radius: 25px;
+            height:30px;
+        }
+
+        #D3 {
+            background-color: #F9DDB1;
+            border-radius: 25px;
+            height:30px;
+        }
+    </style>
+</head>
+
+
+<body>
+    <div id="D1">
+        
+        <div id="D2">
+            <h2>Listings</h2>
+        </div>
+        <p>Check out all our available products here!</p>
+        <div id="D3">
+            <p>View by Category</p>
+        </div>
+    </div>
+</body>
+</html>
+
+<a href="/PostListingsPage" class="btn btn-secondary">
+    <span class="oi oi-plus"></span>
+    Create New Listing
+</a>
+<br />
+
+@if (Products == null)
+{
+    <div class="alert alert-info">Loading Products...</div>
+}
+
+else
+{
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Products)
+            {
+                <tr>
+                    <td>@product.ProductName</td>
+                    <td>
+                        <a href="/ListingsPage/view/@product.ProductID" class="btn btn-primary">
+                            <span class="oi oi-book"></span>
+                        </a>
+                        <a href="/ListingsPage/edit/@product.ProductID" class="btn btn-warning">
+                            <span class="oi oi-pencil"></span>
+                        </a>
+                        <button class="btn btn-danger" @onclick="@(()=>Delete(product.ProductID))">
+                            <span class="oi oi-delete"></span>
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+@code{
+    private List<Product>? Products;
+
+    protected async override Task OnInitializedAsync()
+    {
+        Products = await _client.GetFromJsonAsync<List<Product>>($"{Endpoints.ProductEndpoint}");
+    }
+
+    async Task Delete(int productId)
+    {
+        if (Products != null)
+        {
+            var product = Products.First(q => q.ProductID == productId);
+            var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {product.ProductName}?");
+            if (confirm)
+            {
+                await _client.DeleteAsync($"{Endpoints.ProductEndpoint}/{productId}");
+                await OnInitializedAsync();
+            }
+        }
+    }
+}

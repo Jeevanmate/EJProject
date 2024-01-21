@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EJProject.Client.Static
 {
-    public class Endpoints
+    public static class Endpoints
     {
         private static readonly string Prefix = "api";
 
