@@ -23,7 +23,14 @@ namespace EJProject.Server.Data
         public DbSet<Staff> Staffs { get; set; }
         public DbSet<Trade> Trades{ get; set; }
 
-       
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+
+        }
+
 
 
     }
