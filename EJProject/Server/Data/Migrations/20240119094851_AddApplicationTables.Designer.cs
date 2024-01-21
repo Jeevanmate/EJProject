@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EJProject.Server.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240116012947_AddApplicationTables")]
+    [Migration("20240119094851_AddApplicationTables")]
     partial class AddApplicationTables
     {
         /// <inheritdoc />
@@ -251,15 +251,10 @@ namespace EJProject.Server.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PhoneNumber")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SellerID")
-                        .HasColumnType("int");
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("BuyerID");
-
-                    b.HasIndex("SellerID");
 
                     b.ToTable("Buyers");
                 });
@@ -272,9 +267,6 @@ namespace EJProject.Server.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductID"));
 
-                    b.Property<int>("BuyerID")
-                        .HasColumnType("int");
-
                     b.Property<string>("Category")
                         .HasColumnType("nvarchar(max)");
 
@@ -284,31 +276,24 @@ namespace EJProject.Server.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float?>("Price")
+                    b.Property<float>("Price")
                         .HasColumnType("real");
 
                     b.Property<string>("ProductName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("SellerId")
-                        .HasColumnType("int");
-
                     b.HasKey("ProductID");
-
-                    b.HasIndex("BuyerID");
-
-                    b.HasIndex("SellerId");
 
                     b.ToTable("Products");
                 });
 
             modelBuilder.Entity("EJProject.Shared.Domain.Seller", b =>
                 {
-                    b.Property<int>("SellerId")
+                    b.Property<int>("SellerID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SellerId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SellerID"));
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
@@ -316,10 +301,10 @@ namespace EJProject.Server.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PhoneNumber")
-                        .HasColumnType("int");
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("SellerId");
+                    b.HasKey("SellerID");
 
                     b.ToTable("Sellers");
                 });
@@ -332,9 +317,6 @@ namespace EJProject.Server.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StaffID"));
 
-                    b.Property<int>("BuyerID")
-                        .HasColumnType("int");
-
                     b.Property<string>("Gender")
                         .HasColumnType("nvarchar(max)");
 
@@ -344,14 +326,7 @@ namespace EJProject.Server.Data.Migrations
                     b.Property<string>("Position")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SellerID")
-                        .HasColumnType("int");
-
                     b.HasKey("StaffID");
-
-                    b.HasIndex("BuyerID");
-
-                    b.HasIndex("SellerID");
 
                     b.ToTable("Staffs");
                 });
@@ -523,55 +498,10 @@ namespace EJProject.Server.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("EJProject.Shared.Domain.Buyer", b =>
-                {
-                    b.HasOne("EJProject.Shared.Domain.Seller", "Seller")
-                        .WithMany()
-                        .HasForeignKey("SellerID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Seller");
-                });
-
-            modelBuilder.Entity("EJProject.Shared.Domain.Product", b =>
-                {
-                    b.HasOne("EJProject.Shared.Domain.Buyer", "Buyer")
-                        .WithMany("Products")
-                        .HasForeignKey("BuyerID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("EJProject.Shared.Domain.Seller", null)
-                        .WithMany("Products")
-                        .HasForeignKey("SellerId");
-
-                    b.Navigation("Buyer");
-                });
-
-            modelBuilder.Entity("EJProject.Shared.Domain.Staff", b =>
-                {
-                    b.HasOne("EJProject.Shared.Domain.Buyer", "Buyer")
-                        .WithMany()
-                        .HasForeignKey("BuyerID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("EJProject.Shared.Domain.Seller", "Seller")
-                        .WithMany()
-                        .HasForeignKey("SellerID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Buyer");
-
-                    b.Navigation("Seller");
-                });
-
             modelBuilder.Entity("EJProject.Shared.Domain.Trade", b =>
                 {
                     b.HasOne("EJProject.Shared.Domain.Buyer", "Buyer")
-                        .WithMany("Trades")
+                        .WithMany()
                         .HasForeignKey("BuyerID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -628,18 +558,6 @@ namespace EJProject.Server.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("EJProject.Shared.Domain.Buyer", b =>
-                {
-                    b.Navigation("Products");
-
-                    b.Navigation("Trades");
-                });
-
-            modelBuilder.Entity("EJProject.Shared.Domain.Seller", b =>
-                {
-                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

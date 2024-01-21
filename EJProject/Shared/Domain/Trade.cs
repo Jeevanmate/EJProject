@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,10 +17,8 @@ namespace EJProject.Shared.Domain
 
         public string? PaymentMethod { get; set; }
 
-        public virtual Buyer? Buyer { get; set; }
         public int BuyerID { get; set; }
 
-
-
+        public virtual Buyer? Buyer { get; set; }
     }
 }

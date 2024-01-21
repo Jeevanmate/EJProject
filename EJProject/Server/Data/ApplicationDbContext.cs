@@ -14,22 +14,13 @@ namespace EJProject.Server.Data
             IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
         {
         }
+        
+        public DbSet<Buyer>Buyers { get; set; }
+        public DbSet<Seller>Sellers { get; set; }
+        public DbSet<Product>Products { get; set; }
+        public DbSet<Staff>Staffs { get; set; }
 
-        public DbSet<Buyer> Buyers { get; set; }
-        public DbSet<Product> Products { get; set; }
-
-        public DbSet<Seller> Sellers { get; set; }
-
-        public DbSet<Staff> Staffs { get; set; }
-        public DbSet<Trade> Trades{ get; set; }
-
-
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            base.OnModelCreating(builder);
-
-
-        }
+        public DbSet<Trade>Trades { get; set; }
 
 
 
