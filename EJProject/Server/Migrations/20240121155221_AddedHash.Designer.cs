@@ -4,6 +4,7 @@ using EJProject.Server.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EJProject.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240121155221_AddedHash")]
+    partial class AddedHash
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -238,7 +241,11 @@ namespace EJProject.Server.Migrations
                         {
                             Id = "3781efa7-66dc-47f0-860f-e506d04102e4",
                             AccessFailedCount = 0,
+<<<<<<<< HEAD:EJProject/Server/Migrations/ApplicationDbContextModelSnapshot.cs
                             ConcurrencyStamp = "2468a74a-6cf2-4c53-976e-6abd9ede3ff9",
+========
+                            ConcurrencyStamp = "f6b1f44a-02cd-4229-a231-127a089935e5",
+>>>>>>>> 144883b00cea860365b6cb560793f6cef7128c0e:EJProject/Server/Migrations/20240121155221_AddedHash.Designer.cs
                             Email = "admin@localhost.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
@@ -246,8 +253,13 @@ namespace EJProject.Server.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN@LOCALHOST.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAECsGxJWVv/su9BCLxj/23bCRXfQ45SR8XvrlVYZzCoLz0JMKGFiX89IKd7uFPaA58g==",
                             PhoneNumberConfirmed = false,
+<<<<<<<< HEAD:EJProject/Server/Migrations/ApplicationDbContextModelSnapshot.cs
                             SecurityStamp = "6076045e-3e4b-46d5-a0a4-8615b17ef725",
+========
+                            SecurityStamp = "d6440bd2-689a-41a2-be10-798c1e309088",
+>>>>>>>> 144883b00cea860365b6cb560793f6cef7128c0e:EJProject/Server/Migrations/20240121155221_AddedHash.Designer.cs
                             TwoFactorEnabled = false,
                             UserName = "admin@localhost.com"
                         });
@@ -634,10 +646,24 @@ namespace EJProject.Server.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+<<<<<<<< HEAD:EJProject/Server/Migrations/ApplicationDbContextModelSnapshot.cs
+========
+            modelBuilder.Entity("EJProject.Shared.Domain.Product", b =>
+                {
+                    b.HasOne("EJProject.Shared.Domain.Seller", "Seller")
+                        .WithMany("Products")
+                        .HasForeignKey("SellerID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Seller");
+                });
+
+>>>>>>>> 144883b00cea860365b6cb560793f6cef7128c0e:EJProject/Server/Migrations/20240121155221_AddedHash.Designer.cs
             modelBuilder.Entity("EJProject.Shared.Domain.Trade", b =>
                 {
                     b.HasOne("EJProject.Shared.Domain.Buyer", "Buyer")
-                        .WithMany()
+                        .WithMany("Trades")
                         .HasForeignKey("BuyerID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -694,6 +720,16 @@ namespace EJProject.Server.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("EJProject.Shared.Domain.Buyer", b =>
+                {
+                    b.Navigation("Trades");
+                });
+
+            modelBuilder.Entity("EJProject.Shared.Domain.Seller", b =>
+                {
+                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }
