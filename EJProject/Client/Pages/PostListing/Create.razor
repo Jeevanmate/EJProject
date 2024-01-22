@@ -1,0 +1,25 @@
+﻿@* 
+@page "/PostListingsPage/create"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3 class="card-title">Create New Listing</h3>
+<hr />
+<br />
+
+<FormComponent ButtonText="Create Listing" product="product" OnValidSubmit="@CreateListing" />
+
+@code {
+    Product product = new Product();
+
+    private IList<Buyer> Buyers;
+
+
+    private async Task CreateListing()
+    {
+        await _client.PostAsJsonAsync(Endpoints.ProductEndpoint, product);
+        _navManager.NavigateTo("/PostListingsPage/");
+    }
+}
+
+*@

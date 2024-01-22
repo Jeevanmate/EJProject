@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EJProject.Server.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240119141631_AddReverseNavigationTradeBuyer")]
-    partial class AddReverseNavigationTradeBuyer
+    [Migration("20240121191126_AddedDefaultDataAndUser")]
+    partial class AddedDefaultDataAndUser
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -647,7 +647,7 @@ namespace EJProject.Server.Data.Migrations
             modelBuilder.Entity("EJProject.Shared.Domain.Trade", b =>
                 {
                     b.HasOne("EJProject.Shared.Domain.Buyer", "Buyer")
-                        .WithMany("Trades")
+                        .WithMany()
                         .HasForeignKey("BuyerID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -704,11 +704,6 @@ namespace EJProject.Server.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("EJProject.Shared.Domain.Buyer", b =>
-                {
-                    b.Navigation("Trades");
                 });
 #pragma warning restore 612, 618
         }
