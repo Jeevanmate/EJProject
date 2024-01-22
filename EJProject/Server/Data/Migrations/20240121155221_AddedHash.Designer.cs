@@ -4,6 +4,7 @@ using EJProject.Server.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EJProject.Server.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240121155221_AddedHash")]
+    partial class AddedHash
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -238,7 +241,7 @@ namespace EJProject.Server.Data.Migrations
                         {
                             Id = "3781efa7-66dc-47f0-860f-e506d04102e4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5e61750d-7735-4459-932d-9f31f284aabd",
+                            ConcurrencyStamp = "f6b1f44a-02cd-4229-a231-127a089935e5",
                             Email = "admin@localhost.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
@@ -246,9 +249,9 @@ namespace EJProject.Server.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEGyugwv42mSorMn1lk97EWW14r2WMn9Mbh7BxYC5Eg3KPhLaAQ7yFMJIcB+gg38j+w==",
+                            PasswordHash = "AQAAAAIAAYagAAAAECsGxJWVv/su9BCLxj/23bCRXfQ45SR8XvrlVYZzCoLz0JMKGFiX89IKd7uFPaA58g==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8d953b71-9441-4f0e-8c27-6c0527e5879f",
+                            SecurityStamp = "d6440bd2-689a-41a2-be10-798c1e309088",
                             TwoFactorEnabled = false,
                             UserName = "admin@localhost.com"
                         });
@@ -274,6 +277,22 @@ namespace EJProject.Server.Data.Migrations
                     b.HasKey("BuyerID");
 
                     b.ToTable("Buyers");
+
+                    b.HasData(
+                        new
+                        {
+                            BuyerID = 1,
+                            Email = "Jeevan@gmail.com",
+                            Name = "Black",
+                            PhoneNumber = "88928586"
+                        },
+                        new
+                        {
+                            BuyerID = 2,
+                            Email = "John@gmail.com",
+                            Name = "John",
+                            PhoneNumber = "84601857"
+                        });
                 });
 
             modelBuilder.Entity("EJProject.Shared.Domain.Product", b =>
@@ -307,6 +326,28 @@ namespace EJProject.Server.Data.Migrations
                     b.HasIndex("SellerID");
 
                     b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            ProductID = 1,
+                            Category = "Electronics",
+                            Condition = "Good",
+                            Description = "Brand new ipad",
+                            Price = 69.7f,
+                            ProductName = "Ipad Air",
+                            SellerID = 1
+                        },
+                        new
+                        {
+                            ProductID = 2,
+                            Category = "Clothes",
+                            Condition = "Excellent",
+                            Description = "Brand new shirt",
+                            Price = 220f,
+                            ProductName = "Ralph Lauren Shirt",
+                            SellerID = 2
+                        });
                 });
 
             modelBuilder.Entity("EJProject.Shared.Domain.Seller", b =>
@@ -329,6 +370,22 @@ namespace EJProject.Server.Data.Migrations
                     b.HasKey("SellerID");
 
                     b.ToTable("Sellers");
+
+                    b.HasData(
+                        new
+                        {
+                            SellerID = 1,
+                            Email = "Smith@gmail.com",
+                            Name = "Smith",
+                            PhoneNumber = "89998765"
+                        },
+                        new
+                        {
+                            SellerID = 2,
+                            Email = "Dickson@gmail.com",
+                            Name = "Dickson",
+                            PhoneNumber = "88001133"
+                        });
                 });
 
             modelBuilder.Entity("EJProject.Shared.Domain.Staff", b =>
@@ -351,6 +408,22 @@ namespace EJProject.Server.Data.Migrations
                     b.HasKey("StaffID");
 
                     b.ToTable("Staffs");
+
+                    b.HasData(
+                        new
+                        {
+                            StaffID = 1,
+                            Gender = "Male",
+                            Name = "Kala",
+                            Position = "Manager"
+                        },
+                        new
+                        {
+                            StaffID = 2,
+                            Gender = "Female",
+                            Name = "Jeff",
+                            Position = "Clerk"
+                        });
                 });
 
             modelBuilder.Entity("EJProject.Shared.Domain.Trade", b =>
@@ -381,6 +454,26 @@ namespace EJProject.Server.Data.Migrations
                     b.HasIndex("BuyerID");
 
                     b.ToTable("Trades");
+
+                    b.HasData(
+                        new
+                        {
+                            TradeID = 1,
+                            BuyerID = 1,
+                            Location = "Tampines",
+                            PaymentMethod = "Cash",
+                            Quantity = 21,
+                            TradeName = "Ipad"
+                        },
+                        new
+                        {
+                            TradeID = 2,
+                            BuyerID = 2,
+                            Location = "Bedok",
+                            PaymentMethod = "Nets",
+                            Quantity = 17,
+                            TradeName = "Shirt"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

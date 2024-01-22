@@ -4,6 +4,7 @@ using EJProject.Server.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EJProject.Server.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240119141631_AddReverseNavigationTradeBuyer")]
+    partial class AddReverseNavigationTradeBuyer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -232,26 +235,6 @@ namespace EJProject.Server.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "3781efa7-66dc-47f0-860f-e506d04102e4",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "5e61750d-7735-4459-932d-9f31f284aabd",
-                            Email = "admin@localhost.com",
-                            EmailConfirmed = false,
-                            FirstName = "Admin",
-                            LastName = "User",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "ADMIN@LOCALHOST.COM",
-                            NormalizedUserName = "ADMIN@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEGyugwv42mSorMn1lk97EWW14r2WMn9Mbh7BxYC5Eg3KPhLaAQ7yFMJIcB+gg38j+w==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "8d953b71-9441-4f0e-8c27-6c0527e5879f",
-                            TwoFactorEnabled = false,
-                            UserName = "admin@localhost.com"
-                        });
                 });
 
             modelBuilder.Entity("EJProject.Shared.Domain.Buyer", b =>
@@ -408,20 +391,6 @@ namespace EJProject.Server.Data.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "ad2bcf0c-20db-474f-8407-5a6b159518ba",
-                            Name = "Administrator",
-                            NormalizedName = "ADMINISTRATOR"
-                        },
-                        new
-                        {
-                            Id = "bd2bcf0c-20db-474f-8407-5a6b159518bb",
-                            Name = "User",
-                            NormalizedName = "USER"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -511,13 +480,6 @@ namespace EJProject.Server.Data.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "3781efa7-66dc-47f0-860f-e506d04102e4",
-                            RoleId = "ad2bcf0c-20db-474f-8407-5a6b159518ba"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -544,7 +506,7 @@ namespace EJProject.Server.Data.Migrations
             modelBuilder.Entity("EJProject.Shared.Domain.Product", b =>
                 {
                     b.HasOne("EJProject.Shared.Domain.Seller", "Seller")
-                        .WithMany("Products")
+                        .WithMany()
                         .HasForeignKey("SellerID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -617,11 +579,6 @@ namespace EJProject.Server.Data.Migrations
             modelBuilder.Entity("EJProject.Shared.Domain.Buyer", b =>
                 {
                     b.Navigation("Trades");
-                });
-
-            modelBuilder.Entity("EJProject.Shared.Domain.Seller", b =>
-                {
-                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

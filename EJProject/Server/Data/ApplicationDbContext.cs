@@ -1,4 +1,5 @@
 ﻿using Duende.IdentityServer.EntityFramework.Options;
+using EJProject.Server.Configurations.Entities;
 using EJProject.Server.Models;
 using EJProject.Shared.Domain;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
@@ -22,6 +23,19 @@ namespace EJProject.Server.Data
 
         public DbSet<Trade>Trades { get; set; }
 
+       
+
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.ApplyConfiguration(new RoleSeedConfiguration());
+            builder.ApplyConfiguration(new UserRoleSeedConfiguration());
+            builder.ApplyConfiguration(new UserSeedConfiguration());
+           
+
+        }
+        
 
 
     }
