@@ -1,4 +1,4 @@
-﻿@page "/ListingsPage"
+﻿@page "/ListingsPage/"
 @inject HttpClient _client
 @inject IJSRuntime js
 
@@ -47,11 +47,13 @@
     </div>
 </body>
 </html>
+<br />
 
 <a href="/PostListingsPage" class="btn btn-secondary">
     <span class="oi oi-plus"></span>
     Create New Listing
 </a>
+<br />
 <br />
 
 @if (Products == null)
@@ -64,34 +66,35 @@ else
     <table class="table table-responsive">
         <thead>
             <tr>
-                <th>Name</th>
+                <th>Name</th>       
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var product in Products)
-            {
-                <tr>
-                    <td>@product.ProductName</td>
-                    <td>
-                        <a href="/ListingsPage/view/@product.ProductID" class="btn btn-primary">
-                            <span class="oi oi-book"></span>
-                        </a>
-                        <a href="/ListingsPage/edit/@product.ProductID" class="btn btn-warning">
-                            <span class="oi oi-pencil"></span>
-                        </a>
-                        <button class="btn btn-danger" @onclick="@(()=>Delete(product.ProductID))">
-                            <span class="oi oi-delete"></span>
-                        </button>
-                    </td>
-                </tr>
-            }
+        {
+            <tr>
+                <td>@product.ProductName</td>
+                <td>
+                    <a href="/ListingsPage/view/@product.ProductID" class="btn btn-primary">
+                        <span class="oi oi-book"></span>
+                    </a>
+                    <a href="/ListingsPage/edit/@product.ProductID" class="btn btn-warning">
+                        <span class="oi oi-pencil"></span>
+                    </a>
+                    <button class="btn btn-danger" @onclick="@(()=>Delete(product.ProductID))">
+                        <span class="oi oi-delete"></span>
+                    </button>
+                </td>
+            </tr>
+        }
         </tbody>
     </table>
 }
 
 
 @code{
+
     private List<Product>? Products;
 
     protected async override Task OnInitializedAsync()
@@ -108,7 +111,7 @@ else
             if (confirm)
             {
                 await _client.DeleteAsync($"{Endpoints.ProductEndpoint}/{productId}");
-                await OnInitializedAsync();
+                await OnInitializedAsync(); 
             }
         }
     }

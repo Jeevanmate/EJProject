@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace EJProject.Server.Data.Migrations
+namespace EJProject.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240121191126_AddedDefaultDataAndUser")]
-    partial class AddedDefaultDataAndUser
+    [Migration("20240122093919_newdb")]
+    partial class newdb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -241,7 +241,7 @@ namespace EJProject.Server.Data.Migrations
                         {
                             Id = "3781efa7-66dc-47f0-860f-e506d04102e4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "df3a7f04-767f-4767-869a-61ccc202ad07",
+                            ConcurrencyStamp = "2468a74a-6cf2-4c53-976e-6abd9ede3ff9",
                             Email = "admin@localhost.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
@@ -250,7 +250,7 @@ namespace EJProject.Server.Data.Migrations
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN@LOCALHOST.COM",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "01653923-619d-45db-9d2d-0538258f23c1",
+                            SecurityStamp = "6076045e-3e4b-46d5-a0a4-8615b17ef725",
                             TwoFactorEnabled = false,
                             UserName = "admin@localhost.com"
                         });
@@ -311,6 +311,9 @@ namespace EJProject.Server.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<float>("Price")
                         .HasColumnType("real");
 
@@ -321,8 +324,6 @@ namespace EJProject.Server.Data.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("ProductID");
-
-                    b.HasIndex("SellerID");
 
                     b.ToTable("Products");
 
@@ -437,6 +438,9 @@ namespace EJProject.Server.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Location")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PaymentMethod")
@@ -631,17 +635,6 @@ namespace EJProject.Server.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("EJProject.Shared.Domain.Product", b =>
-                {
-                    b.HasOne("EJProject.Shared.Domain.Seller", "Seller")
-                        .WithMany()
-                        .HasForeignKey("SellerID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Seller");
                 });
 
             modelBuilder.Entity("EJProject.Shared.Domain.Trade", b =>

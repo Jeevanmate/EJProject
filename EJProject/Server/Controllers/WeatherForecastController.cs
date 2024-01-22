@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EJProject.Server.Controllers
 {
-    [Authorize]
+   // [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
