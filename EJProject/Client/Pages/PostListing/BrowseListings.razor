@@ -1,6 +1,8 @@
 ﻿@page "/ListingsPage/"
 @inject HttpClient _client
 @inject IJSRuntime js
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
 
 
 <!DOCTYPE html>
@@ -54,7 +56,6 @@
     Create New Listing
 </a>
 <br />
-<br />
 
 @if (Products == null)
 {
@@ -101,6 +102,7 @@ else
     {
         Products = await _client.GetFromJsonAsync<List<Product>>($"{Endpoints.ProductEndpoint}");
     }
+
 
     async Task Delete(int productId)
     {

@@ -127,25 +127,6 @@ namespace EJProject.Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Products",
-                columns: table => new
-                {
-                    ProductID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ProductName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Category = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Price = table.Column<float>(type: "real", nullable: false),
-                    Condition = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SellerID = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Products", x => x.ProductID);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Sellers",
                 columns: table => new
                 {
@@ -291,8 +272,7 @@ namespace EJProject.Server.Migrations
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Quantity = table.Column<int>(type: "int", nullable: true),
                     PaymentMethod = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    BuyerID = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    BuyerID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -302,6 +282,30 @@ namespace EJProject.Server.Migrations
                         column: x => x.BuyerID,
                         principalTable: "Buyers",
                         principalColumn: "BuyerID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Products",
+                columns: table => new
+                {
+                    ProductID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Category = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Price = table.Column<float>(type: "real", nullable: false),
+                    Condition = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SellerID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Products", x => x.ProductID);
+                    table.ForeignKey(
+                        name: "FK_Products_Sellers_SellerID",
+                        column: x => x.SellerID,
+                        principalTable: "Sellers",
+                        principalColumn: "SellerID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -317,7 +321,7 @@ namespace EJProject.Server.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "3781efa7-66dc-47f0-860f-e506d04102e4", 0, "2468a74a-6cf2-4c53-976e-6abd9ede3ff9", "admin@localhost.com", false, "Admin", "User", false, null, "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", null, null, false, "6076045e-3e4b-46d5-a0a4-8615b17ef725", false, "admin@localhost.com" });
+                values: new object[] { "3781efa7-66dc-47f0-860f-e506d04102e4", 0, "1244828b-7df9-4b34-9691-0a95ec813856", "admin@localhost.com", false, "Admin", "User", false, null, "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", null, null, false, "cb6b518a-2dbe-423b-b898-93b853f53154", false, "admin@localhost.com" });
 
             migrationBuilder.InsertData(
                 table: "Buyers",
@@ -326,15 +330,6 @@ namespace EJProject.Server.Migrations
                 {
                     { 1, "Jeevan@gmail.com", "Black", "88928586" },
                     { 2, "John@gmail.com", "John", "84601857" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Products",
-                columns: new[] { "ProductID", "Category", "Condition", "Description", "Name", "Price", "ProductName", "SellerID" },
-                values: new object[,]
-                {
-                    { 1, "Electronics", "Good", "Brand new ipad", null, 69.7f, "Ipad Air", 1 },
-                    { 2, "Clothes", "Excellent", "Brand new shirt", null, 220f, "Ralph Lauren Shirt", 2 }
                 });
 
             migrationBuilder.InsertData(
@@ -361,12 +356,21 @@ namespace EJProject.Server.Migrations
                 values: new object[] { "ad2bcf0c-20db-474f-8407-5a6b159518ba", "3781efa7-66dc-47f0-860f-e506d04102e4" });
 
             migrationBuilder.InsertData(
-                table: "Trades",
-                columns: new[] { "TradeID", "BuyerID", "Location", "Name", "PaymentMethod", "Quantity", "TradeName" },
+                table: "Products",
+                columns: new[] { "ProductID", "Category", "Condition", "Description", "Price", "ProductName", "SellerID" },
                 values: new object[,]
                 {
-                    { 1, 1, "Tampines", null, "Cash", 21, "Ipad" },
-                    { 2, 2, "Bedok", null, "Nets", 17, "Shirt" }
+                    { 1, "Electronics", "Good", "Brand new ipad", 69.7f, "Ipad Air", 1 },
+                    { 2, "Clothes", "Excellent", "Brand new shirt", 220f, "Ralph Lauren Shirt", 2 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Trades",
+                columns: new[] { "TradeID", "BuyerID", "Location", "PaymentMethod", "Quantity", "TradeName" },
+                values: new object[,]
+                {
+                    { 1, 1, "Tampines", "Cash", 21, "Ipad" },
+                    { 2, 2, "Bedok", "Nets", 17, "Shirt" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -445,6 +449,11 @@ namespace EJProject.Server.Migrations
                 columns: new[] { "SubjectId", "SessionId", "Type" });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Products_SellerID",
+                table: "Products",
+                column: "SellerID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Trades_BuyerID",
                 table: "Trades",
                 column: "BuyerID");
@@ -481,9 +490,6 @@ namespace EJProject.Server.Migrations
                 name: "Products");
 
             migrationBuilder.DropTable(
-                name: "Sellers");
-
-            migrationBuilder.DropTable(
                 name: "Staffs");
 
             migrationBuilder.DropTable(
@@ -494,6 +500,9 @@ namespace EJProject.Server.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Sellers");
 
             migrationBuilder.DropTable(
                 name: "Buyers");

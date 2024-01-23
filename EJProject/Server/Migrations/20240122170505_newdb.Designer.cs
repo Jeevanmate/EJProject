@@ -4,16 +4,19 @@ using EJProject.Server.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace EJProject.Server.Data.Migrations
+namespace EJProject.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240122170505_newdb")]
+    partial class newdb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -238,7 +241,7 @@ namespace EJProject.Server.Data.Migrations
                         {
                             Id = "3781efa7-66dc-47f0-860f-e506d04102e4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "df3a7f04-767f-4767-869a-61ccc202ad07",
+                            ConcurrencyStamp = "1244828b-7df9-4b34-9691-0a95ec813856",
                             Email = "admin@localhost.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
@@ -247,7 +250,7 @@ namespace EJProject.Server.Data.Migrations
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN@LOCALHOST.COM",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "01653923-619d-45db-9d2d-0538258f23c1",
+                            SecurityStamp = "cb6b518a-2dbe-423b-b898-93b853f53154",
                             TwoFactorEnabled = false,
                             UserName = "admin@localhost.com"
                         });
@@ -633,7 +636,7 @@ namespace EJProject.Server.Data.Migrations
             modelBuilder.Entity("EJProject.Shared.Domain.Product", b =>
                 {
                     b.HasOne("EJProject.Shared.Domain.Seller", "Seller")
-                        .WithMany()
+                        .WithMany("Products")
                         .HasForeignKey("SellerID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -644,7 +647,7 @@ namespace EJProject.Server.Data.Migrations
             modelBuilder.Entity("EJProject.Shared.Domain.Trade", b =>
                 {
                     b.HasOne("EJProject.Shared.Domain.Buyer", "Buyer")
-                        .WithMany()
+                        .WithMany("Trades")
                         .HasForeignKey("BuyerID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -701,6 +704,16 @@ namespace EJProject.Server.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("EJProject.Shared.Domain.Buyer", b =>
+                {
+                    b.Navigation("Trades");
+                });
+
+            modelBuilder.Entity("EJProject.Shared.Domain.Seller", b =>
+                {
+                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }
