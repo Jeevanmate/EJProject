@@ -100,7 +100,7 @@ else
 
     protected async override Task OnInitializedAsync()
     {
-        Products = await _client.GetFromJsonAsync<List<Product>>($"{Endpoints.ProductEndpoint}");
+        Products = await _client.GetFromJsonAsync<List<Product>>($"{Endpoints.ProductsEndpoint}");
     }
 
 
@@ -112,7 +112,7 @@ else
             var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {product.ProductName}?");
             if (confirm)
             {
-                await _client.DeleteAsync($"{Endpoints.ProductEndpoint}/{productId}");
+                await _client.DeleteAsync($"{Endpoints.ProductsEndpoint}/{productId}");
                 await OnInitializedAsync(); 
             }
         }
