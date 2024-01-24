@@ -27,7 +27,7 @@ namespace EJProject.Server.Repository
         private UserManager<ApplicationUser> _userManager;
 
         public UnitOfWork(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
-        {
+        {   
             _context = context;
             _userManager = userManager;
         }
@@ -42,8 +42,6 @@ namespace EJProject.Server.Repository
             => _staffs ??= new GenericRepository<Staff>(_context);
         public IGenericRepository<Trade> Trades
             => _trades ??= new GenericRepository<Trade>(_context);
-
-        public IGenericRepository<Trade> Tradess => throw new NotImplementedException();
 
         public void Dispose()
         {
