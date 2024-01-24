@@ -20,7 +20,7 @@ namespace EJProject.Server.Controllers
         private readonly IUnitOfWork _unitOfWork;
 
         //Refactored
-        //public MakesController(ApplicationDbContext context)
+        //public TradesController(ApplicationDbContext context)
         public TradesController(IUnitOfWork unitOfWork)
         {
             //Refactored
@@ -28,60 +28,59 @@ namespace EJProject.Server.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        // GET: api/Makes
+        // GET: api/Trades
         [HttpGet]
         //Refactored
-        //public async Task<ActionResult<IEnumerable<Make>>> GetMakes()
+        //public async Task<ActionResult<IEnumerable<Trade>>> GetTrades()
         public async Task<IActionResult> GetTrades()
         {
             //Refactored
-            // if (_context.Makes == null)
-            //  {
-            //       return NotFound();
-            //   }
-            //     return await _context.Makes.ToListAsync();
-            var Trades = await _unitOfWork.Trades.GetAll();
-            return Ok(Trades);
+            //if (_context.Trades == null)
+            // {
+            //     return NotFound();
+            // }
+            //return await _context.Trades.ToListAsync();
+            var trades = await _unitOfWork.Trades.GetAll();
+            return Ok(trades);
         }
 
-        // GET: api/Makes/5
+        // GET: api/Trades/5
         [HttpGet("{id}")]
-
         //Refactored
-        // public async Task<ActionResult<Make>> GetMake(int id)
+        //public async Task<ActionResult<Trade>> GetTrade(int id)
         public async Task<IActionResult> GetTrade(int id)
+
         {
             //Refactored
-            // if (_context.Makes == null)
+            //if (_context.Trades == null)
             //{
-            //   return NotFound();
+            //    return NotFound();
             //}
-            // var make = await _context.Makes.FindAsync(id);
-            var Trade = await _unitOfWork.Trades.Get(q => q.TradeID == id);
+            //  var trade = await _context.Trades.FindAsync(id);
+            var trade = await _unitOfWork.Trades.Get(q => q.TradeID == id);
 
-            if (Trade == null)
+            if (trade == null)
             {
                 return NotFound();
             }
 
             //Refactored
-            //return make;
-            return Ok(Trade);
+            return Ok(trade);
         }
 
-        // PUT: api/Makes/5
+        // PUT: api/Trades/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutMake(int id, Trade Trade)
+        public async Task<IActionResult> PutTrade(int id, Trade trade)
         {
-            if (id != Trade.TradeID)
+            if (id != trade.TradeID)
             {
                 return BadRequest();
             }
 
             //Refactored
-            // _context.Entry(make).State = EntityState.Modified;
-            _unitOfWork.Trades.Update(Trade);
+            //_context.Entry(trade).State = EntityState.Modified;
+            _unitOfWork.Trades.Update(trade);
 
             try
             {
@@ -92,7 +91,7 @@ namespace EJProject.Server.Controllers
             catch (DbUpdateConcurrencyException)
             {
                 //Refactored
-                //if (!MakeExists(id))
+                //if (!TradeExists(id))
                 if (!await TradeExists(id))
                 {
                     return NotFound();
@@ -106,59 +105,57 @@ namespace EJProject.Server.Controllers
             return NoContent();
         }
 
-        // POST: api/Makes
+        // POST: api/Trades
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Trade>> PostMake(Trade Trade)
+        public async Task<ActionResult<Trade>> PostTrade(Trade trade)
         {
             //Refactored
-            //if (_context.Makes == null)
+            //if (_context.Trades == null)
             //{
-            //   return Problem("Entity set 'ApplicationDbContext.Makes'  is null.");
+            //    return Problem("Entity set 'ApplicationDbContext.Trades'  is null.");
             //}
-            // _context.Makes.Add(make);
-            //await _context.SaveChangesAsync();
-            await _unitOfWork.Trades.Insert(Trade);
+            // _context.Trades.Add(trade);
+            //  await _context.SaveChangesAsync();
+            await _unitOfWork.Trades.Insert(trade);
             await _unitOfWork.Save(HttpContext);
 
-            return CreatedAtAction("GetTrade", new { id = Trade.TradeID }, Trade);
+            return CreatedAtAction("GetTrade", new { id = trade.TradeID }, trade);
         }
 
-        // DELETE: api/Makes/5
+        // DELETE: api/Trades/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTrade(int id)
         {
             //Refactored
-            // if (_context.Makes == null)
+            //if (_context.Trades == null)
             //{
-            //   return NotFound();
+            //    return NotFound();
             //}
-            //var make = await _context.Makes.FindAsync(id);
-            var Trade = await _unitOfWork.Trades.Get(q => q.TradeID == id);
-
-            if (Trade == null)
+            //var trade = await _context.Trades.FindAsync(id);
+            var trade = await _unitOfWork.Trades.Get(q => q.TradeID == id);
+            if (trade == null)
             {
                 return NotFound();
             }
 
             //Refactored
-            //_context.Makes.Remove(make);
+            //_context.Trades.Remove(trade);
             //await _context.SaveChangesAsync();
             await _unitOfWork.Trades.Delete(id);
             await _unitOfWork.Save(HttpContext);
-
 
             return NoContent();
         }
 
         //Refactored
-        //private bool MakeExists(int id)
+        //private bool TradeExists(int id)
         private async Task<bool> TradeExists(int id)
         {
             //Refactored
-            //return (_context.Makes?.Any(e => e.Id == id)).GetValueOrDefault();
-            var Trade = await _unitOfWork.Trades.Get(q => q.TradeID == id);
-            return Trade != null;
+            //return (_context.Trades?.Any(e => e.TradeID == id)).GetValueOrDefault();
+            var trade = await _unitOfWork.Trades.Get(q => q.TradeID == id);
+            return trade != null;
         }
     }
 }

@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace EJProject.Server.Data.Migrations
+namespace EJProject.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240121155221_AddedHash")]
-    partial class AddedHash
+    [Migration("20240122170505_newdb")]
+    partial class newdb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -241,7 +241,7 @@ namespace EJProject.Server.Data.Migrations
                         {
                             Id = "3781efa7-66dc-47f0-860f-e506d04102e4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f6b1f44a-02cd-4229-a231-127a089935e5",
+                            ConcurrencyStamp = "1244828b-7df9-4b34-9691-0a95ec813856",
                             Email = "admin@localhost.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
@@ -249,9 +249,8 @@ namespace EJProject.Server.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAECsGxJWVv/su9BCLxj/23bCRXfQ45SR8XvrlVYZzCoLz0JMKGFiX89IKd7uFPaA58g==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d6440bd2-689a-41a2-be10-798c1e309088",
+                            SecurityStamp = "cb6b518a-2dbe-423b-b898-93b853f53154",
                             TwoFactorEnabled = false,
                             UserName = "admin@localhost.com"
                         });

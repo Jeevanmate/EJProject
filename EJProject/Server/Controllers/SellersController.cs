@@ -20,7 +20,7 @@ namespace EJProject.Server.Controllers
         private readonly IUnitOfWork _unitOfWork;
 
         //Refactored
-        //public MakesController(ApplicationDbContext context)
+        //public SellersController(ApplicationDbContext context)
         public SellersController(IUnitOfWork unitOfWork)
         {
             //Refactored
@@ -28,60 +28,59 @@ namespace EJProject.Server.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        // GET: api/Makes
+        // GET: api/Sellers
         [HttpGet]
         //Refactored
-        //public async Task<ActionResult<IEnumerable<Make>>> GetMakes()
+        //public async Task<ActionResult<IEnumerable<Seller>>> GetSellers()
         public async Task<IActionResult> GetSellers()
         {
             //Refactored
-            // if (_context.Makes == null)
-            //  {
-            //       return NotFound();
-            //   }
-            //     return await _context.Makes.ToListAsync();
-            var Sellers = await _unitOfWork.Sellers.GetAll();
-            return Ok(Sellers);
+            //if (_context.Sellers == null)
+            // {
+            //     return NotFound();
+            // }
+            //return await _context.Sellers.ToListAsync();
+            var sellers = await _unitOfWork.Sellers.GetAll();
+            return Ok(sellers);
         }
 
-        // GET: api/Makes/5
+        // GET: api/Sellers/5
         [HttpGet("{id}")]
-
         //Refactored
-        // public async Task<ActionResult<Make>> GetMake(int id)
+        //public async Task<ActionResult<Seller>> GetSeller(int id)
         public async Task<IActionResult> GetSeller(int id)
+
         {
             //Refactored
-            // if (_context.Makes == null)
+            //if (_context.Sellers == null)
             //{
-            //   return NotFound();
+            //    return NotFound();
             //}
-            // var make = await _context.Makes.FindAsync(id);
-            var Seller = await _unitOfWork.Sellers.Get(q => q.SellerID == id);
+            //  var seller = await _context.Sellers.FindAsync(id);
+            var seller = await _unitOfWork.Sellers.Get(q => q.SellerID == id);
 
-            if (Seller == null)
+            if (seller == null)
             {
                 return NotFound();
             }
 
             //Refactored
-            //return make;
-            return Ok(Seller);
+            return Ok(seller);
         }
 
-        // PUT: api/Makes/5
+        // PUT: api/Sellers/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutMake(int id, Seller Seller)
+        public async Task<IActionResult> PutSeller(int id, Seller seller)
         {
-            if (id != Seller.SellerID)
+            if (id != seller.SellerID)
             {
                 return BadRequest();
             }
 
             //Refactored
-            // _context.Entry(make).State = EntityState.Modified;
-            _unitOfWork.Sellers.Update(Seller);
+            //_context.Entry(seller).State = EntityState.Modified;
+            _unitOfWork.Sellers.Update(seller);
 
             try
             {
@@ -92,7 +91,7 @@ namespace EJProject.Server.Controllers
             catch (DbUpdateConcurrencyException)
             {
                 //Refactored
-                //if (!MakeExists(id))
+                //if (!SellerExists(id))
                 if (!await SellerExists(id))
                 {
                     return NotFound();
@@ -106,59 +105,58 @@ namespace EJProject.Server.Controllers
             return NoContent();
         }
 
-        // POST: api/Makes
+        // POST: api/Sellers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Seller>> PostMake(Seller Seller)
+        public async Task<ActionResult<Seller>> PostSeller(Seller seller)
         {
             //Refactored
-            //if (_context.Makes == null)
+            //if (_context.Sellers == null)
             //{
-            //   return Problem("Entity set 'ApplicationDbContext.Makes'  is null.");
+            //    return Problem("Entity set 'ApplicationDbContext.Sellers'  is null.");
             //}
-            // _context.Makes.Add(make);
-            //await _context.SaveChangesAsync();
-            await _unitOfWork.Sellers.Insert(Seller);
+            // _context.Sellers.Add(seller);
+            //  await _context.SaveChangesAsync();
+            await _unitOfWork.Sellers.Insert(seller);
             await _unitOfWork.Save(HttpContext);
 
-            return CreatedAtAction("GetSeller", new { id = Seller.SellerID }, Seller);
+            return CreatedAtAction("GetSeller", new { id = seller.SellerID }, seller);
         }
 
-        // DELETE: api/Makes/5
+        // DELETE: api/Sellers/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteSeller(int id)
         {
             //Refactored
-            // if (_context.Makes == null)
+            //if (_context.Sellers == null)
             //{
-            //   return NotFound();
+            //    return NotFound();
             //}
-            //var make = await _context.Makes.FindAsync(id);
-            var Seller = await _unitOfWork.Sellers.Get(q => q.SellerID == id);
-
-            if (Seller == null)
+            //var seller = await _context.Sellers.FindAsync(id);
+            var seller = await _unitOfWork.Sellers.Get(q => q.SellerID == id);
+            if (seller == null)
             {
                 return NotFound();
             }
 
             //Refactored
-            //_context.Makes.Remove(make);
+            //_context.Sellers.Remove(seller);
             //await _context.SaveChangesAsync();
             await _unitOfWork.Sellers.Delete(id);
             await _unitOfWork.Save(HttpContext);
-
 
             return NoContent();
         }
 
         //Refactored
-        //private bool MakeExists(int id)
+        //private bool SellerExists(int id)
         private async Task<bool> SellerExists(int id)
         {
             //Refactored
-            //return (_context.Makes?.Any(e => e.Id == id)).GetValueOrDefault();
-            var Seller = await _unitOfWork.Sellers.Get(q => q.SellerID == id);
-            return Seller != null;
+            //return (_context.Sellers?.Any(e => e.SellerID == id)).GetValueOrDefault();
+            var seller = await _unitOfWork.Sellers.Get(q => q.SellerID == id);
+            return seller != null;
         }
     }
 }
+

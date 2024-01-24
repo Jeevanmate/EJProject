@@ -15,13 +15,12 @@ namespace EJProject.Server.Controllers
     [ApiController]
     public class BuyersController : ControllerBase
     {
-
         //Refactored
         //private readonly ApplicationDbContext _context;
         private readonly IUnitOfWork _unitOfWork;
 
         //Refactored
-        //public MakesController(ApplicationDbContext context)
+        //public BuyersController(ApplicationDbContext context)
         public BuyersController(IUnitOfWork unitOfWork)
         {
             //Refactored
@@ -29,35 +28,35 @@ namespace EJProject.Server.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        // GET: api/Makes
+        // GET: api/Buyers
         [HttpGet]
         //Refactored
-        //public async Task<ActionResult<IEnumerable<Make>>> GetMakes()
+        //public async Task<ActionResult<IEnumerable<Buyer>>> GetBuyers()
         public async Task<IActionResult> GetBuyers()
         {
-            //Refactored
-            // if (_context.Makes == null)
-            //  {
-            //       return NotFound();
-            //   }
-            //     return await _context.Makes.ToListAsync();
+          //Refactored
+          //if (_context.Buyers == null)
+         // {
+         //     return NotFound();
+         // }
+            //return await _context.Buyers.ToListAsync();
             var buyers = await _unitOfWork.Buyers.GetAll();
             return Ok(buyers);
         }
 
-        // GET: api/Makes/5
+        // GET: api/Buyers/5
         [HttpGet("{id}")]
-
         //Refactored
-        // public async Task<ActionResult<Make>> GetMake(int id)
+        //public async Task<ActionResult<Buyer>> GetBuyer(int id)
         public async Task<IActionResult> GetBuyer(int id)
+    
         {
             //Refactored
-            // if (_context.Makes == null)
+            //if (_context.Buyers == null)
             //{
-            //   return NotFound();
+            //    return NotFound();
             //}
-            // var make = await _context.Makes.FindAsync(id);
+            //  var buyer = await _context.Buyers.FindAsync(id);
             var buyer = await _unitOfWork.Buyers.Get(q => q.BuyerID == id);
 
             if (buyer == null)
@@ -66,14 +65,13 @@ namespace EJProject.Server.Controllers
             }
 
             //Refactored
-            //return make;
             return Ok(buyer);
         }
 
-        // PUT: api/Makes/5
+        // PUT: api/Buyers/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutMake(int id, Buyer buyer)
+        public async Task<IActionResult> PutBuyer(int id, Buyer buyer)
         {
             if (id != buyer.BuyerID)
             {
@@ -81,7 +79,7 @@ namespace EJProject.Server.Controllers
             }
 
             //Refactored
-            // _context.Entry(make).State = EntityState.Modified;
+            //_context.Entry(buyer).State = EntityState.Modified;
             _unitOfWork.Buyers.Update(buyer);
 
             try
@@ -93,7 +91,7 @@ namespace EJProject.Server.Controllers
             catch (DbUpdateConcurrencyException)
             {
                 //Refactored
-                //if (!MakeExists(id))
+                //if (!BuyerExists(id))
                 if (!await BuyerExists(id))
                 {
                     return NotFound();
@@ -107,60 +105,57 @@ namespace EJProject.Server.Controllers
             return NoContent();
         }
 
-        // POST: api/Makes
+        // POST: api/Buyers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Buyer>> PostMake(Buyer buyer)
+        public async Task<ActionResult<Buyer>> PostBuyer(Buyer buyer)
         {
             //Refactored
-            //if (_context.Makes == null)
+            //if (_context.Buyers == null)
             //{
-            //   return Problem("Entity set 'ApplicationDbContext.Makes'  is null.");
+            //    return Problem("Entity set 'ApplicationDbContext.Buyers'  is null.");
             //}
-            // _context.Makes.Add(make);
-            //await _context.SaveChangesAsync();
+            // _context.Buyers.Add(buyer);
+            //  await _context.SaveChangesAsync();
             await _unitOfWork.Buyers.Insert(buyer);
             await _unitOfWork.Save(HttpContext);
 
             return CreatedAtAction("GetBuyer", new { id = buyer.BuyerID }, buyer);
         }
 
-        // DELETE: api/Makes/5
+        // DELETE: api/Buyers/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBuyer(int id)
         {
             //Refactored
-            // if (_context.Makes == null)
+            //if (_context.Buyers == null)
             //{
-            //   return NotFound();
+            //    return NotFound();
             //}
-            //var make = await _context.Makes.FindAsync(id);
+            //var buyer = await _context.Buyers.FindAsync(id);
             var buyer = await _unitOfWork.Buyers.Get(q => q.BuyerID == id);
-
             if (buyer == null)
             {
                 return NotFound();
             }
 
             //Refactored
-            //_context.Makes.Remove(make);
+            //_context.Buyers.Remove(buyer);
             //await _context.SaveChangesAsync();
             await _unitOfWork.Buyers.Delete(id);
             await _unitOfWork.Save(HttpContext);
-
 
             return NoContent();
         }
 
         //Refactored
-        //private bool MakeExists(int id)
+        //private bool BuyerExists(int id)
         private async Task<bool> BuyerExists(int id)
         {
             //Refactored
-            //return (_context.Makes?.Any(e => e.Id == id)).GetValueOrDefault();
+            //return (_context.Buyers?.Any(e => e.BuyerID == id)).GetValueOrDefault();
             var buyer = await _unitOfWork.Buyers.Get(q => q.BuyerID == id);
             return buyer != null;
         }
     }
 }
-

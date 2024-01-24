@@ -1,4 +1,5 @@
-﻿using EJProject.Shared.Domain;
+﻿using EJProject.Server.Repository;
+using EJProject.Shared.Domain;
 
 namespace EJProject.Server.IRepository
 {
@@ -12,4 +13,4 @@ namespace EJProject.Server.IRepository
         IGenericRepository<Trade> Trades { get; }
 
     }
- }
+}

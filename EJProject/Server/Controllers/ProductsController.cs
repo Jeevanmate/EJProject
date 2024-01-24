@@ -20,7 +20,7 @@ namespace EJProject.Server.Controllers
         private readonly IUnitOfWork _unitOfWork;
 
         //Refactored
-        //public MakesController(ApplicationDbContext context)
+        //public ProductsController(ApplicationDbContext context)
         public ProductsController(IUnitOfWork unitOfWork)
         {
             //Refactored
@@ -28,35 +28,35 @@ namespace EJProject.Server.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        // GET: api/Makes
+        // GET: api/Products
         [HttpGet]
         //Refactored
-        //public async Task<ActionResult<IEnumerable<Make>>> GetMakes()
+        //public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         public async Task<IActionResult> GetProducts()
         {
             //Refactored
-            // if (_context.Makes == null)
-            //  {
-            //       return NotFound();
-            //   }
-            //     return await _context.Makes.ToListAsync();
+            //if (_context.Products == null)
+            // {
+            //     return NotFound();
+            // }
+            //return await _context.Products.ToListAsync();
             var Products = await _unitOfWork.Products.GetAll();
             return Ok(Products);
         }
 
-        // GET: api/Makes/5
+        // GET: api/Products/5
         [HttpGet("{id}")]
-
         //Refactored
-        // public async Task<ActionResult<Make>> GetMake(int id)
+        //public async Task<ActionResult<Product>> GetProduct(int id)
         public async Task<IActionResult> GetProduct(int id)
+
         {
             //Refactored
-            // if (_context.Makes == null)
+            //if (_context.Products == null)
             //{
-            //   return NotFound();
+            //    return NotFound();
             //}
-            // var make = await _context.Makes.FindAsync(id);
+            //  var Product = await _context.Products.FindAsync(id);
             var Product = await _unitOfWork.Products.Get(q => q.ProductID == id);
 
             if (Product == null)
@@ -65,14 +65,13 @@ namespace EJProject.Server.Controllers
             }
 
             //Refactored
-            //return make;
             return Ok(Product);
         }
 
-        // PUT: api/Makes/5
+        // PUT: api/Products/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutMake(int id, Product Product)
+        public async Task<IActionResult> PutProduct(int id, Product Product)
         {
             if (id != Product.ProductID)
             {
@@ -80,7 +79,7 @@ namespace EJProject.Server.Controllers
             }
 
             //Refactored
-            // _context.Entry(make).State = EntityState.Modified;
+            //_context.Entry(Product).State = EntityState.Modified;
             _unitOfWork.Products.Update(Product);
 
             try
@@ -92,7 +91,7 @@ namespace EJProject.Server.Controllers
             catch (DbUpdateConcurrencyException)
             {
                 //Refactored
-                //if (!MakeExists(id))
+                //if (!ProductExists(id))
                 if (!await ProductExists(id))
                 {
                     return NotFound();
@@ -106,57 +105,55 @@ namespace EJProject.Server.Controllers
             return NoContent();
         }
 
-        // POST: api/Makes
+        // POST: api/Products
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Product>> PostMake(Product Product)
+        public async Task<ActionResult<Product>> PostProduct(Product Product)
         {
             //Refactored
-            //if (_context.Makes == null)
+            //if (_context.Products == null)
             //{
-            //   return Problem("Entity set 'ApplicationDbContext.Makes'  is null.");
+            //    return Problem("Entity set 'ApplicationDbContext.Products'  is null.");
             //}
-            // _context.Makes.Add(make);
-            //await _context.SaveChangesAsync();
+            // _context.Products.Add(Product);
+            //  await _context.SaveChangesAsync();
             await _unitOfWork.Products.Insert(Product);
             await _unitOfWork.Save(HttpContext);
 
             return CreatedAtAction("GetProduct", new { id = Product.ProductID }, Product);
         }
 
-        // DELETE: api/Makes/5
+        // DELETE: api/Products/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProduct(int id)
         {
             //Refactored
-            // if (_context.Makes == null)
+            //if (_context.Products == null)
             //{
-            //   return NotFound();
+            //    return NotFound();
             //}
-            //var make = await _context.Makes.FindAsync(id);
+            //var Product = await _context.Products.FindAsync(id);
             var Product = await _unitOfWork.Products.Get(q => q.ProductID == id);
-
             if (Product == null)
             {
                 return NotFound();
             }
 
             //Refactored
-            //_context.Makes.Remove(make);
+            //_context.Products.Remove(Product);
             //await _context.SaveChangesAsync();
             await _unitOfWork.Products.Delete(id);
             await _unitOfWork.Save(HttpContext);
-
 
             return NoContent();
         }
 
         //Refactored
-        //private bool MakeExists(int id)
+        //private bool ProductExists(int id)
         private async Task<bool> ProductExists(int id)
         {
             //Refactored
-            //return (_context.Makes?.Any(e => e.Id == id)).GetValueOrDefault();
+            //return (_context.Products?.Any(e => e.ProductID == id)).GetValueOrDefault();
             var Product = await _unitOfWork.Products.Get(q => q.ProductID == id);
             return Product != null;
         }

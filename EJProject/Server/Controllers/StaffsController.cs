@@ -20,7 +20,7 @@ namespace EJProject.Server.Controllers
         private readonly IUnitOfWork _unitOfWork;
 
         //Refactored
-        //public MakesController(ApplicationDbContext context)
+        //public StaffsController(ApplicationDbContext context)
         public StaffsController(IUnitOfWork unitOfWork)
         {
             //Refactored
@@ -28,60 +28,59 @@ namespace EJProject.Server.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        // GET: api/Makes
+        // GET: api/Staffs
         [HttpGet]
         //Refactored
-        //public async Task<ActionResult<IEnumerable<Make>>> GetMakes()
+        //public async Task<ActionResult<IEnumerable<Staff>>> GetStaffs()
         public async Task<IActionResult> GetStaffs()
         {
             //Refactored
-            // if (_context.Makes == null)
-            //  {
-            //       return NotFound();
-            //   }
-            //     return await _context.Makes.ToListAsync();
-            var Staffs = await _unitOfWork.Staffs.GetAll();
-            return Ok(Staffs);
+            //if (_context.Staffs == null)
+            // {
+            //     return NotFound();
+            // }
+            //return await _context.Staffs.ToListAsync();
+            var staffs = await _unitOfWork.Staffs.GetAll();
+            return Ok(staffs);
         }
 
-        // GET: api/Makes/5
+        // GET: api/Staffs/5
         [HttpGet("{id}")]
-
         //Refactored
-        // public async Task<ActionResult<Make>> GetMake(int id)
+        //public async Task<ActionResult<Staff>> GetStaff(int id)
         public async Task<IActionResult> GetStaff(int id)
+
         {
             //Refactored
-            // if (_context.Makes == null)
+            //if (_context.Staffs == null)
             //{
-            //   return NotFound();
+            //    return NotFound();
             //}
-            // var make = await _context.Makes.FindAsync(id);
-            var Staff = await _unitOfWork.Staffs.Get(q => q.StaffID == id);
+            //  var staff = await _context.Staffs.FindAsync(id);
+            var staff = await _unitOfWork.Staffs.Get(q => q.StaffID == id);
 
-            if (Staff == null)
+            if (staff == null)
             {
                 return NotFound();
             }
 
             //Refactored
-            //return make;
-            return Ok(Staff);
+            return Ok(staff);
         }
 
-        // PUT: api/Makes/5
+        // PUT: api/Staffs/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutMake(int id, Staff Staff)
+        public async Task<IActionResult> PutStaff(int id, Staff staff)
         {
-            if (id != Staff.StaffID)
+            if (id != staff.StaffID)
             {
                 return BadRequest();
             }
 
             //Refactored
-            // _context.Entry(make).State = EntityState.Modified;
-            _unitOfWork.Staffs.Update(Staff);
+            //_context.Entry(staff).State = EntityState.Modified;
+            _unitOfWork.Staffs.Update(staff);
 
             try
             {
@@ -92,7 +91,7 @@ namespace EJProject.Server.Controllers
             catch (DbUpdateConcurrencyException)
             {
                 //Refactored
-                //if (!MakeExists(id))
+                //if (!StaffExists(id))
                 if (!await StaffExists(id))
                 {
                     return NotFound();
@@ -106,59 +105,57 @@ namespace EJProject.Server.Controllers
             return NoContent();
         }
 
-        // POST: api/Makes
+        // POST: api/Staffs
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Staff>> PostMake(Staff Staff)
+        public async Task<ActionResult<Staff>> PostStaff(Staff staff)
         {
             //Refactored
-            //if (_context.Makes == null)
+            //if (_context.Staffs == null)
             //{
-            //   return Problem("Entity set 'ApplicationDbContext.Makes'  is null.");
+            //    return Problem("Entity set 'ApplicationDbContext.Staffs'  is null.");
             //}
-            // _context.Makes.Add(make);
-            //await _context.SaveChangesAsync();
-            await _unitOfWork.Staffs.Insert(Staff);
+            // _context.Staffs.Add(staff);
+            //  await _context.SaveChangesAsync();
+            await _unitOfWork.Staffs.Insert(staff);
             await _unitOfWork.Save(HttpContext);
 
-            return CreatedAtAction("GetStaff", new { id = Staff.StaffID }, Staff);
+            return CreatedAtAction("GetStaff", new { id = staff.StaffID }, staff);
         }
 
-        // DELETE: api/Makes/5
+        // DELETE: api/Staffs/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteStaff(int id)
         {
             //Refactored
-            // if (_context.Makes == null)
+            //if (_context.Staffs == null)
             //{
-            //   return NotFound();
+            //    return NotFound();
             //}
-            //var make = await _context.Makes.FindAsync(id);
-            var Staff = await _unitOfWork.Staffs.Get(q => q.StaffID == id);
-
-            if (Staff == null)
+            //var staff = await _context.Staffs.FindAsync(id);
+            var staff = await _unitOfWork.Staffs.Get(q => q.StaffID == id);
+            if (staff == null)
             {
                 return NotFound();
             }
 
             //Refactored
-            //_context.Makes.Remove(make);
+            //_context.Staffs.Remove(staff);
             //await _context.SaveChangesAsync();
             await _unitOfWork.Staffs.Delete(id);
             await _unitOfWork.Save(HttpContext);
-
 
             return NoContent();
         }
 
         //Refactored
-        //private bool MakeExists(int id)
+        //private bool StaffExists(int id)
         private async Task<bool> StaffExists(int id)
         {
             //Refactored
-            //return (_context.Makes?.Any(e => e.Id == id)).GetValueOrDefault();
-            var Staff = await _unitOfWork.Staffs.Get(q => q.StaffID == id);
-            return Staff != null;
+            //return (_context.Staffs?.Any(e => e.StaffID == id)).GetValueOrDefault();
+            var staff = await _unitOfWork.Staffs.Get(q => q.StaffID == id);
+            return staff != null;
         }
     }
 }
