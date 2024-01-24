@@ -1,0 +1,49 @@
+﻿<h3>Buyers</h3>
+
+<EditForm Model="@buyer" OnValidSubmit="@OnValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <fieldset disabled="@Disabled" >
+    <div class="form-group">
+        <label>Name: </label>
+        <div>
+            <InputText @bind-Value="@buyer.Name" class="form-control" />
+            <ValidationMessage For="@(() => buyer.Name )" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Contact Number: </label>
+        <div>
+            <InputText @bind-Value="@buyer.PhoneNumber" class="form-control" />
+            <ValidationMessage For="@(() => buyer.PhoneNumber )" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Email Address: </label>
+        <div>
+            <InputText @bind-Value="@buyer.Email" class="form-control" />
+            <ValidationMessage For="@(() => buyer.Email )" />
+        </div>
+    </div>
+    </fieldset>
+
+
+    @if (!Disabled)
+    {
+        <button type="submit" class="btn btn-success btn-block">
+            @ButtonText
+        </button>
+    }
+    <BackToList Target="buyers" />
+</EditForm>
+
+@code {
+    [Parameter] public bool Disabled { get; set; } = false;
+    [Parameter] public Buyer? buyer { get; set; }
+    [Parameter] public string ButtonText { get; set; } = "Save";
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+
+}

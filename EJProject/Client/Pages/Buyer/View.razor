@@ -1,0 +1,16 @@
+﻿@page "/buyers/view/{id:int}"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+<h3>View</h3>
+
+<FormComponent buyer="buyer" Disabled="true" />
+
+@code {
+    [Parameter] public int id { get; set; }
+    Buyer? buyer = new Buyer();
+    protected async override Task OnParametersSetAsync()
+    {
+        buyer = await
+        _client.GetFromJsonAsync<Buyer>($"{Endpoints.BuyersEndpoint}/{id}");
+    }
+}
