@@ -18,7 +18,7 @@ namespace EJProject.Server.Configurations.Entities
                     LastName = "User",
                     UserName = "admin@localhost.com",
                     NormalizedUserName = "ADMIN@LOCALHOST.COM",
-
+                    
                 }
 );
 

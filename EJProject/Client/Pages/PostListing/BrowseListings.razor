@@ -1,8 +1,8 @@
 ﻿@page "/ListingsPage/"
 @inject HttpClient _client
 @inject IJSRuntime js
+@attribute [Authorize]
 @inject AuthenticationStateProvider AuthenticationStateProvider
-
 
 
 <!DOCTYPE html>
@@ -25,7 +25,7 @@
             background-color: #F5C77E;
             border-radius: 25px;
             height: 30px;
-            <BrowseListings />
+           
         }
 
         #D3 {
@@ -52,9 +52,9 @@
 </html>
 <br />
 
-<a href="/PostListingsPage" class="btn btn-secondary">
+<a href="/ListingsPage/create" class="btn btn-secondary">
     <span class="oi oi-plus"></span>
-    Create New Listing Here
+    Create New Listing 
 </a>
 <br />
 
@@ -68,7 +68,11 @@ else
     <table class="table table-responsive">
         <thead>
             <tr>
-                <th>Name</th>       
+                <th>Name</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Condition</th>
+                <th>Description</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -77,6 +81,10 @@ else
         {
             <tr>
                 <td>@product.ProductName</td>
+                <td>@product.Category</td>
+                <td>@product.Price</td>
+                <td>@product.Description</td>
+
                 <td>
                     <a href="/ListingsPage/view/@product.ProductID" class="btn btn-primary">
                         <span class="oi oi-book"></span>
