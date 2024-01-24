@@ -1,0 +1,30 @@
+﻿@page "/buyers/create"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3 class="card-title">Create New Buyer</h3>
+<hr />
+<br />
+
+<FormComponent ButtonText="Create Buyer" buyer="buyer" OnValidSubmit="@CreateBuyer" />
+
+@code {
+    Buyer buyer = new Buyer();
+
+    private IList<Buyer>? Buyers;
+    private IList<Product>? Products;
+    private IList<Trade>? Trades;
+
+    protected async override Task OnInitializedAsync()
+    {
+        Buyers = await _client.GetFromJsonAsync<List<Buyer>>($"{Endpoints.BuyersEndpoint}");
+        Products = await _client.GetFromJsonAsync<List<Product>>($"{Endpoints.ProductsEndpoint}");
+        Trades = await _client.GetFromJsonAsync<List<Trade>>($"{Endpoints.TradesEndpoint}");
+    }
+
+    private async Task CreateBuyer()
+    {
+        await _client.PostAsJsonAsync(Endpoints.BuyersEndpoint, buyer);
+        _navManager.NavigateTo("/buyers/");
+    }
+}

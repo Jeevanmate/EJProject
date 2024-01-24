@@ -1,0 +1,74 @@
+﻿@page "/buyers/"
+@inject HttpClient _client
+@inject IJSRuntime js
+@attribute [Authorize]
+
+<h3 class="card-title">Buyers</h3>
+<a href="/buyers/create" class="btn btn-secondary">
+    <span class="oi oi-plus"></span>
+    Create New Buyer
+</a>
+<br />
+<br />
+
+@if (Buyers == null)
+{
+    <div class="alert alert-info">Loading Buyers...</div>
+}
+
+else
+{
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var buyer in Buyers)
+            {
+                <tr>
+                    <td>@buyer.Name</td>
+                    <td>
+                        <a href="/buyers/view/@buyer.BuyerID" class="btn btn-primary">
+                            <span class="oi oi-book"></span>
+                        </a>
+                        <a href="/buyers/edit/@buyer.BuyerID" class="btn btn-warning">
+                            <span class="oi oi-pencil"></span>
+                        </a>
+                        <button class="btn btn-danger" @onclick="@(()=>Delete(buyer.BuyerID))">
+                            <span class="oi oi-delete"></span>
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+@code {
+
+    private List<Buyer>? Buyers;
+
+    protected async override Task OnInitializedAsync()
+    {
+        Buyers = await _client.GetFromJsonAsync<List<Buyer>>($"{Endpoints.BuyersEndpoint}");
+    }
+
+
+    async Task Delete(int buyerId)
+    {
+        if (Buyers != null)
+        {
+            var buyer = Buyers.First(q => q.BuyerID == buyerId);
+            var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {buyer.Name}?");
+            if (confirm)
+            {
+                await _client.DeleteAsync($"{Endpoints.BuyersEndpoint}/{buyerId}");
+                await OnInitializedAsync();
+            }
+        }
+    }
+}
