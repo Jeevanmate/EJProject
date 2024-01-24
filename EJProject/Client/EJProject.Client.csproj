@@ -8,17 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Pages\Seller\**" />
-    <Compile Remove="Pages\Trade\**" />
-    <Content Remove="Pages\Seller\**" />
-    <Content Remove="Pages\Trade\**" />
-    <EmbeddedResource Remove="Pages\Seller\**" />
-    <EmbeddedResource Remove="Pages\Trade\**" />
-    <None Remove="Pages\Seller\**" />
-    <None Remove="Pages\Trade\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <_ContentIncludedByDefault Remove="wwwroot\Reviews.JPG" />
   </ItemGroup>
 
@@ -35,6 +24,12 @@
 
   <ItemGroup>
     <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Pages\Buyer\" />
+    <Folder Include="Pages\Staff\" />
+	<Folder Include="Pages\Seller\" />
   </ItemGroup>
 
 </Project>

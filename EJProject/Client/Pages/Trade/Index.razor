@@ -1,0 +1,76 @@
+﻿@page "/trades/"
+@inject HttpClient _client
+@inject IJSRuntime js
+@attribute [Authorize]
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+
+
+<h3 class="card-title">Trades</h3>
+@if (Trades == null)
+{
+    <div class="alert alert-info">Loading Trades...</div>
+}
+
+else
+{
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>Buyer</th>
+                <th>Trade Id</th>
+                <th>Location</th>
+                <th>Quantity</th>
+                <th>Payment Method</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var trade in Trades)
+            {
+                <tr>
+                    <td>@trade.Buyer.Name</td>
+                    <td>@trade.TradeID</td>
+                    <td>@trade.Location</td>
+                    <td>@trade.Quantity</td>
+                    <td>@trade.PaymentMethod</td>
+                    <td>
+                        <a href="/trades/view/@trade.TradeID" class="btn btn-primary">
+                            <span class="oi oi-book"></span>
+                        </a>
+                        <a href="/trades/edit/@trade.TradeID" class="btn btn-warning">
+                            <span class="oi oi-pencil"></span>
+                        </a>
+                        <button class="btn btn-danger" @onclick="@(()=>Delete(trade.TradeID))">
+                            <span class="oi oi-delete"></span>
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Trade>? Trades;
+
+    protected async override Task OnInitializedAsync()
+    {
+        Trades = await _client.GetFromJsonAsync<List<Trade>>($"{Endpoints.TradesEndpoint}");
+    }
+
+    async Task Delete(int tradeId)
+    {
+        if (Trades != null)
+        {
+            var trade = Trades.First(q => q.TradeID == tradeId);
+            var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {trade.TradeID}?");
+            if (confirm)
+            {
+                await _client.DeleteAsync($"{Endpoints.TradesEndpoint}/{tradeId}");
+                await OnInitializedAsync();
+            }
+        }
+    }
+}
+
