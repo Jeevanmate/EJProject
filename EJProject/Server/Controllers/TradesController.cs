@@ -40,7 +40,7 @@ namespace EJProject.Server.Controllers
             //     return NotFound();
             // }
             //return await _context.Trades.ToListAsync();
-            var trades = await _unitOfWork.Trades.GetAll();
+            var trades = await _unitOfWork.Trades.GetAll(includes:q => q.Include(x => x.Buyer));
             return Ok(trades);
         }
 

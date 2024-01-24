@@ -1,0 +1,71 @@
+﻿@page "/sellers/"
+@inject HttpClient _client
+@inject IJSRuntime js
+@attribute [Authorize]
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+
+<h3 class="card-title"> Sellers</h3>
+@if (Sellers == null)
+{
+    <div class="alert alert-info">Loading Sellers...</div>
+}
+
+else
+{
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Phone Number</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var seller in Sellers)
+            {
+                <tr>
+                    <td>@seller.Name</td>
+                    <td>@seller.PhoneNumber</td>
+                    <td>@seller.Email</td>
+
+                    <td>
+                        <a href="/sellers/view/@seller.SellerID" class="btn btn-primary">
+                            <span class="oi oi-book"></span>
+                        </a>
+                        <a href="/sellers/edit/@seller.SellerID" class="btn btn-warning">
+                            <span class="oi oi-pencil"></span>
+                        </a>
+                        <button class="btn btn-danger" @onclick="@(()=>Delete(seller.SellerID))">
+                            <span class="oi oi-delete"></span>
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Seller>? Sellers;
+
+    protected async override Task OnInitializedAsync()
+    {
+        Sellers = await _client.GetFromJsonAsync<List<Seller>>($"{Endpoints.SellersEndpoint}");
+    }
+
+    async Task Delete(int sellerId)
+    {
+        if(Sellers != null)
+        {
+            var seller = Sellers.First(q => q.SellerID == sellerId);
+            var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {seller.Name}?");
+            if(confirm)
+            {
+                await _client.DeleteAsync($"{Endpoints.SellersEndpoint}/{sellerId}");
+                await OnInitializedAsync();
+            }
+        }
+    }
+}
