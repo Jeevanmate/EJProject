@@ -27,7 +27,7 @@ namespace EJProject.Server.Repository
         private UserManager<ApplicationUser> _userManager;
 
         public UnitOfWork(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
-        {
+        {   
             _context = context;
             _userManager = userManager;
         }
