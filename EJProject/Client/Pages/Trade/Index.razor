@@ -7,6 +7,13 @@
 
 
 <h3 class="card-title">Trades</h3>
+<a href="/trades/create" class="btn btn-secondary">
+    <span class="oi oi-plus"></span>
+    Create New Trade
+</a>
+<br />
+<br />
+
 @if (Trades == null)
 {
     <div class="alert alert-info">Loading Trades...</div>
@@ -18,7 +25,7 @@ else
         <thead>
             <tr>
                 <th>Buyer</th>
-                <th>Trade Id</th>
+                <th>Trade Name</th>
                 <th>Location</th>
                 <th>Quantity</th>
                 <th>Payment Method</th>
@@ -30,7 +37,7 @@ else
             {
                 <tr>
                     <td>@trade.Buyer.Name</td>
-                    <td>@trade.TradeID</td>
+                    <td>@trade.TradeName</td>
                     <td>@trade.Location</td>
                     <td>@trade.Quantity</td>
                     <td>@trade.PaymentMethod</td>

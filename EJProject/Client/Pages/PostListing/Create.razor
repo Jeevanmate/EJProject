@@ -1,25 +1,93 @@
-﻿@* 
-@page "/PostListingsPage/create"
+﻿@page "/ListingsPage/create"
 @inject HttpClient _client
 @inject NavigationManager _navManager
 
-<h3 class="card-title">Create New Listing</h3>
+<h3 class="card-title">Create New Listings</h3>
 <hr />
 <br />
 
-<FormComponent ButtonText="Create Listing" product="product" OnValidSubmit="@CreateListing" />
+<EditForm Model="@product" OnValidSubmit="CreateProduct">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
 
-@code {
+<div class="form-group">
+    <label>Seller</label>
+    <div>
+        <InputSelect @bind-Value="product.SellerID" class="form-control">
+            <option value="">-- Select Seller --</option>
+            @if (Sellers != null)
+            {
+                foreach (var seller in Sellers)
+                {
+                    <option value="@seller.SellerID">@seller.Name</option> // populating the dropdown list with the seller names based on the sellerid
+                }
+            }
+        </InputSelect>
+        <ValidationMessage For="@(() => product.SellerID)" /> //Validation for foreign key in product entity
+    </div>
+</div>
+
+<div class="form-group">
+    <label>Price: </label>
+    <div>
+        <InputNumber @bind-Value="@product.Price" class="form-control" />
+        <ValidationMessage For="@(() =>product.Price )" />
+    </div>
+</div>
+
+<div class="form-group">
+    <label>Category: </label>
+    <div>
+        <InputText @bind-Value="@product.Category" class="form-control" />
+        <ValidationMessage For="@(() => product.Category)" />
+    </div>
+</div>
+
+<div class="form-group">
+    <label>Condition: </label>
+    <div>
+        <InputText @bind-Value="@product.Condition" class="form-control" />
+        <ValidationMessage For="@(() => product.Condition)" />
+    </div>
+</div>
+
+<div class="form-group">
+    <label>Product Name: </label>
+    <div>
+        <InputText @bind-Value="@product.ProductName" class="form-control" />
+        <ValidationMessage For="@(() => product.ProductName)" />
+    </div>
+</div>
+
+<div class="form-group">
+    <label>Description </label>
+    <div>
+        <InputText @bind-Value="@product.Description" class="form-control" />
+        <ValidationMessage For="@(() => product.Description)" />
+    </div>
+</div>
+
+
+<button type="submit" class="btn btn-success btn-block">
+    Create Product
+</button>
+
+</EditForm>
+    
+@code{
     Product product = new Product();
 
-    private IList<Buyer> Buyers;
+    private IList<Seller>? Sellers;
 
-
-    private async Task CreateListing()
+    protected async override Task OnInitializedAsync()
     {
-        await _client.PostAsJsonAsync(Endpoints.ProductEndpoint, product);
-        _navManager.NavigateTo("/PostListingsPage/");
+        Sellers = await _client.GetFromJsonAsync<List<Seller>>($"{Endpoints.SellersEndpoint}");
     }
-}
 
-*@
+    private async Task CreateProduct()
+    {
+        await _client.PostAsJsonAsync(Endpoints.ProductsEndpoint, product);
+        _navManager.NavigateTo("/ListingsPage/");
+    }
+
+}

@@ -1,7 +1,6 @@
 ﻿@*
-    @inject HttpClient _client
+@inject HttpClient _client
 <h3>Listings</h3>
-
 
 <EditForm Model="@product" OnValidSubmit="@OnValidSubmit">
     <DataAnnotationsValidator />
@@ -23,7 +22,7 @@
                 <ValidationMessage For="@(() => make.Image)" />
             </div>
         </div>
-    
+
 
     </fieldset>
     @if (!Disabled)
@@ -47,11 +46,6 @@
     protected async override Task OnInitializedAsync()
     {
         Makes = await _client.GetFromJsonAsync<List<Make>>($"{Endpoints.MakesEndPoint}");
-        
-
-
     }
-
-
-}
 *@
+

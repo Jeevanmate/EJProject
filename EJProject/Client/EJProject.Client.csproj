@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -29,7 +29,6 @@
   <ItemGroup>
     <Folder Include="Pages\Buyer\" />
     <Folder Include="Pages\Staff\" />
-	<Folder Include="Pages\Seller\" />
   </ItemGroup>
 
 </Project>
