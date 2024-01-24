@@ -28,9 +28,7 @@
 
   <ItemGroup>
     <Folder Include="Pages\Buyer\" />
-    <Folder Include="Pages\Trade\" />
     <Folder Include="Pages\Staff\" />
-    <Folder Include="Pages\Seller\" />
   </ItemGroup>
 
 </Project>
