@@ -24,7 +24,6 @@ else
     <table class="table table-responsive">
         <thead>
             <tr>
-                <th>Buyer</th>
                 <th>Trade Name</th>
                 <th>Location</th>
                 <th>Quantity</th>
@@ -36,7 +35,6 @@ else
             @foreach (var trade in Trades)
             {
                 <tr>
-                    <td>@trade.Buyer.Name</td>
                     <td>@trade.TradeName</td>
                     <td>@trade.Location</td>
                     <td>@trade.Quantity</td>
@@ -71,7 +69,7 @@ else
         if (Trades != null)
         {
             var trade = Trades.First(q => q.TradeID == tradeId);
-            var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {trade.TradeID}?");
+            var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {trade.TradeName}?");
             if (confirm)
             {
                 await _client.DeleteAsync($"{Endpoints.TradesEndpoint}/{tradeId}");
