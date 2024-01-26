@@ -7,38 +7,7 @@
 <hr />
 <br />
 
-<EditForm Model="@seller" OnValidSubmit="CreateSeller">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
-
-<div class="form-group">
-    <label>Name: </label>
-    <div>
-        <InputText @bind-Value="@seller.Name" class="form-control" />
-        <ValidationMessage For="@(() => seller.Name )" />
-    </div>
-</div>
-
-<div class="form-group">
-    <label>Phone Number: </label>
-    <div>
-        <InputText @bind-Value="@seller.PhoneNumber" class="form-control" />
-        <ValidationMessage For="@(() => seller.PhoneNumber )" />
-    </div>
-</div>
-
-<div class="form-group">
-    <label>Email: </label>
-    <div>
-        <InputText @bind-Value="@seller.Email" class="form-control" />
-        <ValidationMessage For="@(() => seller.Email )" />
-    </div>
-</div>
-
-<button type="submit" class="btn btn-success btn-block">
-    Create Seller
-</button>
-</EditForm>
+<FormComponent ButtonText="Create Seller" seller="seller" OnValidSubmit="@CreateSeller" />
 
 
 @code {

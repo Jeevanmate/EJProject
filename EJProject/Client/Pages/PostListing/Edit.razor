@@ -1,0 +1,26 @@
+﻿@page "/ListingsPage/edit/{id:int}"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+
+<h3>Edit</h3>
+
+<FormComponent ButtonText="Update" OnValidSubmit="EditProduct" product="product"></FormComponent>
+
+@code {
+    [Parameter] public int id { get; set; }
+    Product? product = new Product();
+
+    protected async override Task OnParametersSetAsync()
+    {
+        product = await
+        _client.GetFromJsonAsync<Product>($"{Endpoints.ProductsEndpoint}/{id}");
+    }
+
+    async Task EditProduct()
+    {
+        await _client.PutAsJsonAsync($"{Endpoints.ProductsEndpoint}/{id}",
+        product);
+        _navManager.NavigateTo("/ListingsPage/");
+    }
+}

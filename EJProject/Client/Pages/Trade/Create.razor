@@ -6,66 +6,7 @@
 <hr />
 <br />
 
-<EditForm Model="@trade" OnValidSubmit="CreateTrade">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
-
-
-<div class="form-group">
-    <label>Buyer</label>
-    <div>
-        <InputSelect @bind-Value="trade.BuyerID" class="form-control">
-            <option value="">-- Select Buyer --</option>
-            @if (Buyers != null)
-            {
-                foreach (var buyer in Buyers)
-                {
-                    <option value="@buyer.BuyerID">@buyer.Name</option>
-                }
-            }
-        </InputSelect>
-        <ValidationMessage For="@(() => trade.BuyerID)" />
-    </div>
-</div>
-
-<div class="form-group">
-    <label>Quantity: </label>
-    <div>
-        <InputNumber @bind-Value="@trade.Quantity" class="form-control" />
-        <ValidationMessage For="@(() =>trade.Quantity )" />
-    </div>
-</div>
-
-<div class="form-group">
-    <label>Trade Name: </label>
-    <div>
-        <InputText @bind-Value="@trade.TradeName" class="form-control" />
-        <ValidationMessage For="@(() => trade.TradeName )" />
-    </div>
-</div>
-
-<div class="form-group">
-    <label>Location: </label>
-    <div>
-        <InputText @bind-Value="@trade.Location" class="form-control" />
-        <ValidationMessage For="@(() => trade.Location )" />
-    </div>
-</div>
-
-<div class="form-group">
-    <label>Payment Method: </label>
-    <div>
-        <InputText @bind-Value="@trade.PaymentMethod" class="form-control" />
-        <ValidationMessage For="@(() => trade.PaymentMethod )" />
-    </div>
-</div>
-
-
-<button type="submit" class="btn btn-success btn-block">
-    Create Trade
-</button>
-
-</EditForm>
+<FormComponent ButtonText="Create Trade" trade="trade" OnValidSubmit="@CreateTrade" />>
 @code {
     Trade trade = new Trade();
 

@@ -24,6 +24,7 @@ else
     <table class="table table-responsive">
         <thead>
             <tr>
+                <th>Buyer</th>
                 <th>Trade Name</th>
                 <th>Location</th>
                 <th>Quantity</th>
@@ -35,6 +36,7 @@ else
             @foreach (var trade in Trades)
             {
                 <tr>
+                    <td>@trade.Buyer.Name</td>
                     <td>@trade.TradeName</td>
                     <td>@trade.Location</td>
                     <td>@trade.Quantity</td>

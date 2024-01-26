@@ -6,73 +6,7 @@
 <hr />
 <br />
 
-<EditForm Model="@product" OnValidSubmit="CreateProduct">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
-
-<div class="form-group">
-    <label>Seller</label>
-    <div>
-        <InputSelect @bind-Value="product.SellerID" class="form-control">
-            <option value="">-- Select Seller --</option>
-            @if (Sellers != null)
-            {
-                foreach (var seller in Sellers)
-                {
-                    <option value="@seller.SellerID">@seller.Name</option> // populating the dropdown list with the seller names based on the sellerid
-                }
-            }
-        </InputSelect>
-        <ValidationMessage For="@(() => product.SellerID)" /> //Validation for foreign key in product entity
-    </div>
-</div>
-
-<div class="form-group">
-    <label>Price: </label>
-    <div>
-        <InputNumber @bind-Value="@product.Price" class="form-control" />
-        <ValidationMessage For="@(() =>product.Price )" />
-    </div>
-</div>
-
-<div class="form-group">
-    <label>Category: </label>
-    <div>
-        <InputText @bind-Value="@product.Category" class="form-control" />
-        <ValidationMessage For="@(() => product.Category)" />
-    </div>
-</div>
-
-<div class="form-group">
-    <label>Condition: </label>
-    <div>
-        <InputText @bind-Value="@product.Condition" class="form-control" />
-        <ValidationMessage For="@(() => product.Condition)" />
-    </div>
-</div>
-
-<div class="form-group">
-    <label>Product Name: </label>
-    <div>
-        <InputText @bind-Value="@product.ProductName" class="form-control" />
-        <ValidationMessage For="@(() => product.ProductName)" />
-    </div>
-</div>
-
-<div class="form-group">
-    <label>Description </label>
-    <div>
-        <InputText @bind-Value="@product.Description" class="form-control" />
-        <ValidationMessage For="@(() => product.Description)" />
-    </div>
-</div>
-
-
-<button type="submit" class="btn btn-success btn-block">
-    Create Product
-</button>
-
-</EditForm>
+<FormComponent ButtonText="Create Product" product="product" OnValidSubmit="@CreateProduct" />
     
 @code{
     Product product = new Product();

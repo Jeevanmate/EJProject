@@ -1,51 +1,91 @@
-﻿@*
-@inject HttpClient _client
-<h3>Listings</h3>
+﻿@inject HttpClient _client
 
 <EditForm Model="@product" OnValidSubmit="@OnValidSubmit">
     <DataAnnotationsValidator />
     <ValidationSummary />
-    <fieldset disabled="@Disabled" >
 
-        <div class="form-group">
-            <label for="Name">Name: </label>
-            <div>
-                <InputText @bind-Value="@product.ProductName" id="Name" class="form-control" />
-                <ValidationMessage For="@(() => product.ProductName)" />
-            </div>
+    <fieldset disabled ="@Disabled">
+    <div class="form-group">
+        <label>Seller</label>
+        <div>
+            <InputSelect @bind-Value="product.SellerID" class="form-control">
+                <option value="">-- Select Seller --</option>
+                @if (Sellers != null)
+                {
+                    foreach (var seller in Sellers)
+                    {
+                        <option value="@seller.SellerID">@seller.Name</option>
+                        // populating the dropdown list with the seller names based on the sellerid
+                    }
+                }
+            </InputSelect>
+            <ValidationMessage For="@(() => product.SellerID)" /> 
+             // Validation for foreign key in product entity
         </div>
+    </div>
 
-        <div class="form-group">
-            <label for="Image">Image: </label>
-            <div>
-                <InputFile id="Image" class="form-control" OnChange="HandleFileChange" />
-                <ValidationMessage For="@(() => make.Image)" />
-            </div>
+    <div class="form-group">
+        <label>Price: </label>
+        <div>
+            <InputNumber @bind-Value="@product.Price" class="form-control" />
+            <ValidationMessage For="@(() =>product.Price )" />
         </div>
+    </div>
 
+    <div class="form-group">
+        <label>Category: </label>
+        <div>
+            <InputText @bind-Value="@product.Category" class="form-control" />
+            <ValidationMessage For="@(() => product.Category)" />
+        </div>
+    </div>
 
+    <div class="form-group">
+        <label>Condition: </label>
+        <div>
+            <InputText @bind-Value="@product.Condition" class="form-control" />
+            <ValidationMessage For="@(() => product.Condition)" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Product Name: </label>
+        <div>
+            <InputText @bind-Value="@product.ProductName" class="form-control" />
+            <ValidationMessage For="@(() => product.ProductName)" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Description </label>
+        <div>
+            <InputText @bind-Value="@product.Description" class="form-control" />
+            <ValidationMessage For="@(() => product.Description)" />
+        </div>
+    </div>
     </fieldset>
-    @if (!Disabled)
+    @if(!Disabled)
     {
         <button type="submit" class="btn btn-success btn-block">
             @ButtonText
         </button>
     }
-    <BackToList Target="products" />
+    
+    <BackToList Target="ListingsPage" />
 </EditForm>
+
 @code {
     [Parameter] public bool Disabled { get; set; } = false;
     [Parameter] public Product? product { get; set; }
     [Parameter] public string ButtonText { get; set; } = "Save";
     [Parameter] public EventCallback OnValidSubmit { get; set; }
 
-    private IList<Buyer>? Buyers;
-    private IList<Trade>? Trades;
     private IList<Seller>? Sellers;
 
     protected async override Task OnInitializedAsync()
     {
-        Makes = await _client.GetFromJsonAsync<List<Make>>($"{Endpoints.MakesEndPoint}");
+        Sellers = await _client.GetFromJsonAsync<List<Seller>>($"{Endpoints.SellersEndpoint}");
     }
-*@
+}
+
 

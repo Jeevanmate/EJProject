@@ -40,7 +40,7 @@ namespace EJProject.Server.Controllers
             //     return NotFound();
             // }
             //return await _context.Products.ToListAsync();
-            var Products = await _unitOfWork.Products.GetAll();
+            var Products = await _unitOfWork.Products.GetAll(includes: q => q.Include(x => x.Seller));
             return Ok(Products);
         }
 
