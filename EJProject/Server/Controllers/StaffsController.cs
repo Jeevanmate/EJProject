@@ -34,6 +34,8 @@ namespace EJProject.Server.Controllers
         //public async Task<ActionResult<IEnumerable<Staff>>> GetStaffs()
         public async Task<IActionResult> GetStaffs()
         {
+            //To be deleted or commented after testing Global Error Handling
+            //return NotFound();
             //Refactored
             //if (_context.Staffs == null)
             // {

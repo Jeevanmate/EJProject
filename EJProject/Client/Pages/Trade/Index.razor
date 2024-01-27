@@ -3,6 +3,8 @@
 @inject IJSRuntime js
 @attribute [Authorize]
 @inject AuthenticationStateProvider AuthenticationStateProvider
+@inject HttpInterceptorService _interceptor
+@implements IDisposable
 
 
 
@@ -21,7 +23,7 @@
 
 else
 {
-    <table class="table table-responsive">
+    <table class="table table-responsive" id="tradesTable">
         <thead>
             <tr>
                 <th>Buyer</th>
@@ -63,6 +65,7 @@ else
 
     protected async override Task OnInitializedAsync()
     {
+        _interceptor.MonitorEvent();
         Trades = await _client.GetFromJsonAsync<List<Trade>>($"{Endpoints.TradesEndpoint}");
     }
 
@@ -79,5 +82,17 @@ else
             }
         }
     }
+
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        await js.InvokeVoidAsync("AddDataTable", "#tradesTable");
+    }
+
+    public void Dispose()
+    {
+        js.InvokeVoidAsync("DataTablesDispose", "#tradesTable");
+    }
+
+
 }
 

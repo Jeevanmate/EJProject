@@ -3,6 +3,8 @@
 @inject IJSRuntime js
 @attribute [Authorize]
 @inject AuthenticationStateProvider AuthenticationStateProvider
+@inject HttpInterceptorService _interceptor
+@implements IDisposable
 
 
 <!DOCTYPE html>
@@ -65,7 +67,7 @@
 
 else
 {
-    <table class="table table-responsive">
+    <table class="table table-responsive" id="productsTable">
         <thead>
             <tr>
                 <th>Seller:</th>
@@ -112,6 +114,7 @@ else
 
     protected async override Task OnInitializedAsync()
     {
+        _interceptor.MonitorEvent();
         Products = await _client.GetFromJsonAsync<List<Product>>($"{Endpoints.ProductsEndpoint}");
     }
 
@@ -128,5 +131,15 @@ else
                 await OnInitializedAsync(); 
             }
         }
+    }
+
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        await js.InvokeVoidAsync("AddDataTable", "#productsTable");
+    }
+
+    public void Dispose()
+    {
+        js.InvokeVoidAsync("DataTablesDispose", "#productsTable");
     }
 }

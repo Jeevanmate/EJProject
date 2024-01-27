@@ -34,6 +34,8 @@ namespace EJProject.Server.Controllers
         //public async Task<ActionResult<IEnumerable<Seller>>> GetSellers()
         public async Task<IActionResult> GetSellers()
         {
+            //To be deleted or commented after testing Global Error Handling
+            //return NotFound();
             //Refactored
             //if (_context.Sellers == null)
             // {
