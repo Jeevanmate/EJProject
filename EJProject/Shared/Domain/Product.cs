@@ -27,6 +27,9 @@ namespace EJProject.Shared.Domain
         public string? Condition { get; set; }
 
         [Required]
+        public string? Image { get; set; } = string.Empty;
+
+        [Required]
         [StringLength(100, MinimumLength = 10, ErrorMessage = "Description does not meet length requirements")]
         public string? Description { get; set; }
 

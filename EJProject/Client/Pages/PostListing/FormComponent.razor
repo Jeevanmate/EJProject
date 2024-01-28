@@ -20,7 +20,7 @@
                 }
             </InputSelect>
             <ValidationMessage For="@(() => product.SellerID)" /> 
-             // Validation for foreign key in product entity
+            @*Validation for foreign key in product entity*@
         </div>
     </div>
 
@@ -57,12 +57,26 @@
     </div>
 
     <div class="form-group">
-        <label>Description </label>
+        <label>Description: </label>
         <div>
             <InputText @bind-Value="@product.Description" class="form-control" />
             <ValidationMessage For="@(() => product.Description)" />
         </div>
     </div>
+        <div class="form-group">
+            <label>Upload Image: </label>
+            <div>
+                <InputFile OnChange="OnFileChange" class="form-control"></InputFile>
+                <ValidationMessage For="@(() => product.Image)" />
+            </div>
+        </div>
+    <br />
+    <br />  
+    <div>
+        <img src="@product.Image" class="rounded" style="max-height: 200px; " />
+    </div>
+        
+
     </fieldset>
     @if(!Disabled)
     {
@@ -85,6 +99,16 @@
     protected async override Task OnInitializedAsync()
     {
         Sellers = await _client.GetFromJsonAsync<List<Seller>>($"{Endpoints.SellersEndpoint}");
+    }
+
+    async Task OnFileChange(InputFileChangeEventArgs e)
+    {
+        var format = "image/png";
+        var resizedImage = await e.File.RequestImageFileAsync(format, 200, 200);
+        var buffer = new byte[resizedImage.Size];
+        await resizedImage.OpenReadStream().ReadAsync(buffer);
+        var imageData = $"data:{format};base64,{Convert.ToBase64String(buffer)}";
+        product.Image = imageData;
     }
 }
 

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EJProject.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240126094933_AddedValidationWarnings")]
-    partial class AddedValidationWarnings
+    [Migration("20240127193526_Images")]
+    partial class Images
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -241,7 +241,7 @@ namespace EJProject.Server.Migrations
                         {
                             Id = "3781efa7-66dc-47f0-860f-e506d04102e4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "36170d54-8f52-4863-9180-d4f71da549fb",
+                            ConcurrencyStamp = "457c24f4-5c91-484a-9a3b-2e85ae72cc01",
                             Email = "admin@localhost.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
@@ -250,7 +250,7 @@ namespace EJProject.Server.Migrations
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN@LOCALHOST.COM",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "977ff06c-76e7-42b0-a5af-6a29cb842729",
+                            SecurityStamp = "07149918-6d0d-4dab-b97c-117cf405dfb4",
                             TwoFactorEnabled = false,
                             UserName = "admin@localhost.com"
                         });
@@ -321,6 +321,10 @@ namespace EJProject.Server.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<float>("Price")
                         .HasColumnType("real");
 
@@ -345,6 +349,7 @@ namespace EJProject.Server.Migrations
                             Category = "Electronics",
                             Condition = "Good",
                             Description = "Brand new ipad",
+                            Image = "",
                             Price = 69.7f,
                             ProductName = "Ipad Air",
                             SellerID = 1
@@ -355,6 +360,7 @@ namespace EJProject.Server.Migrations
                             Category = "Clothes",
                             Condition = "Excellent",
                             Description = "Brand new shirt",
+                            Image = "",
                             Price = 220f,
                             ProductName = "Ralph Lauren Shirt",
                             SellerID = 2
@@ -423,8 +429,8 @@ namespace EJProject.Server.Migrations
 
                     b.Property<string>("Position")
                         .IsRequired()
-                        .HasMaxLength(5)
-                        .HasColumnType("nvarchar(5)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.HasKey("StaffID");
 

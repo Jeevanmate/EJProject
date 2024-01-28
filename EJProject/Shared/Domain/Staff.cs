@@ -16,7 +16,7 @@ namespace EJProject.Shared.Domain
         public string? Gender { get; set; }
 
         [Required]
-        [StringLength(5, MinimumLength = 20, ErrorMessage = "Position does not meet the length requirements")]
+        [StringLength(10, MinimumLength = 2, ErrorMessage = "Position does not meet the length requirements")]
         public string? Position { get; set; }
     }
 }
