@@ -26,5 +26,6 @@ namespace EJProject.Shared.Domain
         public int? BuyerID { get; set; }
 
         public virtual Buyer? Buyer { get; set; }
+
     }
 }
