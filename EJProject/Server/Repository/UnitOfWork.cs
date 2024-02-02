@@ -23,6 +23,8 @@ namespace EJProject.Server.Repository
         private IGenericRepository<Seller> _sellers;
         private IGenericRepository<Staff> _staffs;
         private IGenericRepository<Trade> _trades;
+        private IGenericRepository<Profile> _profiles;
+
 
         private UserManager<ApplicationUser> _userManager;
 
@@ -42,6 +44,9 @@ namespace EJProject.Server.Repository
             => _staffs ??= new GenericRepository<Staff>(_context);
         public IGenericRepository<Trade> Trades
             => _trades ??= new GenericRepository<Trade>(_context);
+
+        public IGenericRepository<Profile> Profiles
+              => _profiles ??= new GenericRepository<Profile>(_context);
 
         public void Dispose()
         {

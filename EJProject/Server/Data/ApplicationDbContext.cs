@@ -23,6 +23,9 @@ namespace EJProject.Server.Data
 
         public DbSet<Trade> Trades { get; set; }
 
+        public DbSet<Profile> Profiles { get; set; }
+
+
 
 
 

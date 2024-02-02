@@ -11,6 +11,8 @@ namespace EJProject.Server.IRepository
         IGenericRepository<Seller> Sellers { get; }
         IGenericRepository<Staff> Staffs { get; }
         IGenericRepository<Trade> Trades { get; }
+        IGenericRepository<Profile> Profiles { get; }
+
 
     }
 }

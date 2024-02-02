@@ -1,0 +1,98 @@
+﻿@page "/profiles/"
+@inject HttpClient _client
+@inject IJSRuntime js
+@attribute [Authorize]
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject HttpInterceptorService _interceptor
+@implements IDisposable
+
+
+
+<h3 class="card-title">Profiles</h3>
+<a href="/profiles/create" class="btn btn-secondary">
+    <span class="oi oi-plus"></span>
+    Create New Profile
+</a>
+<br />
+<br />
+
+@if (Profiles == null)
+{
+    <div class="alert alert-info">Loading Profiles...</div>
+}
+
+else
+{
+    <table class="table table-responsive" id="profilesTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Gender</th>
+                <th>Contact Number</th>
+                <th>Description</th>
+                <th>Profile Image</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var profile in Profiles)
+            {
+                <tr>
+                    <td>@profile.Name</td>
+                    <td>@profile.Gender</td>
+                    <td>@profile.PhoneNumber</td>
+                    <td>@profile.Description</td>
+                    <td><img src="@profile.Image" class="rounded" style="max-height: 100px;" /></td>
+                    <td>
+                        <a href="/profiles/view/@profile.ProfileID" class="btn btn-primary">
+                            <span class="oi oi-book"></span>
+                        </a>
+                        <a href="/profiles/edit/@profile.ProfileID" class="btn btn-warning">
+                            <span class="oi oi-pencil"></span>
+                        </a>
+                        <button class="btn btn-danger" @onclick="@(()=>Delete(profile.ProfileID))">
+                            <span class="oi oi-delete"></span>
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Profile>? Profiles;
+
+    protected async override Task OnInitializedAsync()
+    {
+        _interceptor.MonitorEvent();
+        Profiles = await _client.GetFromJsonAsync<List<Profile>>($"{Endpoints.ProfilesEndpoint}");
+    }
+
+    async Task Delete(int profileId)
+    {
+        if (Profiles != null)
+        {
+            var profile = Profiles.First(q => q.ProfileID == profileId);
+            var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {profile.Name}?");
+            if (confirm)
+            {
+                await _client.DeleteAsync($"{Endpoints.ProfilesEndpoint}/{profileId}");
+                await OnInitializedAsync();
+            }
+        }
+    }
+
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        await js.InvokeVoidAsync("AddDataTable", "#profilesTable");
+    }
+
+    public void Dispose()
+    {
+        js.InvokeVoidAsync("DataTablesDispose", "#profilesTable");
+    }
+
+
+}
+
