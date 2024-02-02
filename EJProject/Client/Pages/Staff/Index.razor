@@ -3,6 +3,7 @@
 @inject IJSRuntime js
 @attribute [Authorize]
 @implements IDisposable
+@inject HttpInterceptorService _interceptor
 
 <h3 class="card-title">Staffs</h3>
 <a href="/staffs/create" class="btn btn-secondary">
