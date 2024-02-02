@@ -1,0 +1,85 @@
+﻿body {
+    background-color: #48CAE4;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+#header {
+    background-color: #48CAE4;
+    padding: 20px;
+    color: #fff;
+}
+
+    #header h1 {
+        margin: 10px 0;
+    }
+
+    #header h2 {
+        margin-top: 5px;
+        font-size: 18px;
+    }
+
+#searchForm {
+    margin-top: 20px;
+}
+
+#searchInput {
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+    margin-right: 8px;
+}
+
+#sellButton {
+    padding: 8px 16px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+    #sellButton:hover {
+        background-color: #0056b3;
+    }
+
+#popularListings {
+    text-align: center;
+    margin-top: 30px;
+}
+
+#featureSection {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.featureBox {
+    background-color: #3C99DC;
+    border-radius: 10px;
+    padding: 20px;
+    height: auto;
+    width: 300px;
+    margin-bottom: 20px;
+}
+
+    .featureBox img {
+        border-radius: 50%;
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        margin-bottom: 10px;
+    }
+
+    .featureBox h4 {
+        margin: 10px 0;
+        font-size: 20px;
+        color: #fff;
+    }
+
+    .featureBox p {
+        font-size: 14px;
+        color: #fff;
+    }
