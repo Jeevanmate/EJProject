@@ -12,11 +12,12 @@
 </a>
 <br />
 
+<link rel="stylesheet" href="/css/Staff.css" />
+
 @if (Staffs == null)
 {
     <div class="alert alert-info">Loading Staffs...</div>
 }
-
 else
 {
     <table class="table table-responsive" id="staffsTable">
@@ -48,9 +49,7 @@ else
     </table>
 }
 
-
 @code {
-
     private List<Staff>? Staffs;
 
     protected async override Task OnInitializedAsync()
@@ -58,7 +57,6 @@ else
         _interceptor.MonitorEvent();
         Staffs = await _client.GetFromJsonAsync<List<Staff>>($"{Endpoints.StaffsEndpoint}");
     }
-
 
     async Task Delete(int staffId)
     {

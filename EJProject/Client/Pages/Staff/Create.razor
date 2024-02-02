@@ -6,6 +6,8 @@
 <hr />
 <br />
 
+<link rel="stylesheet" href="/css/Staff.css" />
+
 <FormComponent ButtonText="Create Staff" staff="staff" OnValidSubmit="@CreateStaff" />
 
 @code {
@@ -13,7 +15,6 @@
 
     private IList<Buyer>? Buyers;
     private IList<Product>? Products;
-    private IList<Trade>? Trades;
     private IList<Staff>? Staffs;
 
     protected async override Task OnInitializedAsync()

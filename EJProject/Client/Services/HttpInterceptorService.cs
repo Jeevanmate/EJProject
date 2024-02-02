@@ -20,7 +20,7 @@ namespace EJProject.Client.Services
         private void InterceptResponse(object? sender, HttpClientInterceptorEventArgs e)
         {
             string message = string.Empty;
-            if (!e.Response.IsSuccessStatusCode)
+            if (e.Response != null && !e.Response.IsSuccessStatusCode)
             {
                 var responseCode = e.Response.StatusCode;
                 switch (responseCode)
@@ -45,3 +45,4 @@ namespace EJProject.Client.Services
         public void DisposeEvent() => interceptor.AfterSend -= InterceptResponse;
     }
 }
+    
