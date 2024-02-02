@@ -8,9 +8,12 @@ using Microsoft.EntityFrameworkCore;
 using EJProject.Server.Data;
 using EJProject.Shared.Domain;
 using EJProject.Server.IRepository;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace EJProject.Server.Controllers
 {
+    [AllowAnonymous]
     [Route("api/[controller]")]
     [ApiController]
     public class StaffsController : ControllerBase

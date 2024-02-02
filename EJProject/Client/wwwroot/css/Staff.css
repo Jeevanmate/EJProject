@@ -1,0 +1,81 @@
+﻿
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa; /* Default background color for the entire body */
+    padding: 20px;
+}
+
+.sidebar {
+    background-color: #007bff; /* Blue background color for the sidebar */
+    color: #fff; /* Text color for the sidebar */
+}
+
+.main-content {
+    background-color: #add8e6; /* Light Blue background color for the main content */
+}
+
+.card-title {
+    color: #007bff;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+.alert-info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+}
+
+.table {
+    width: 100%;
+    margin-top: 20px;
+}
+
+    .table th, .table td {
+        padding: 12px;
+        text-align: left;
+    }
+
+    .table th {
+        background-color: #007bff;
+        color: #fff;
+    }
+
+    .table tbody tr:nth-child(even) {
+        background-color: #f8f9fa; /* Default background color for even rows */
+    }
+
+    .table tbody tr:nth-child(odd) {
+        background-color: #e2e6ea; /* Default background color for odd rows */
+    }
+
+    .table tbody tr:hover {
+        background-color: #b0e0e6; /* Hover background color for all rows */
+    }
+
+.btn-primary, .btn-warning, .btn-danger {
+    margin-right: 5px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+/* Optionally, add additional styling for the staff actions icons */
+.btn span.oi {
+    font-size: 16px;
+    margin-right: 5px;
+}
