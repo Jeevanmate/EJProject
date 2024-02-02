@@ -1,0 +1,85 @@
+﻿@inject HttpClient _client
+
+<EditForm Model="@profile" OnValidSubmit="@OnValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <fieldset disabled="@Disabled">
+        <div class="form-group">
+            <label>Name: </label>
+            <div>
+                <InputText @bind-Value="@profile.Name" class="form-control" />
+                <ValidationMessage For="@(() => profile.Name )" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Gender: </label>
+            <div>
+                <InputText @bind-Value="@profile.Gender" class="form-control" />
+                <ValidationMessage For="@(() => profile.Gender )" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Contact Number: </label>
+            <div>
+                <InputText @bind-Value="@profile.PhoneNumber" class="form-control" />
+                <ValidationMessage For="@(() => profile.PhoneNumber )" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Bio/Description: </label>
+            <div>
+                <InputText @bind-Value="@profile.Description" class="form-control" />
+                <ValidationMessage For="@(() => profile.Description )" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Upload Image: </label>
+            <div>
+                <InputFile OnChange="OnFileChange" class="form-control"></InputFile>
+                <ValidationMessage For="@(() => profile.Image)" />
+            </div>
+        </div>
+        <br />
+        <br />
+        <div>
+            <img src="@profile.Image" class="rounded" style="max-height: 200px; " />
+        </div>
+
+    </fieldset>
+    @if (!Disabled)
+    {
+        <button type="submit" class="btn btn-success btn-block">
+            @ButtonText
+        </button>
+    }
+
+
+    <BackToList Target="profiles" />
+</EditForm>
+
+@code {
+    [Parameter] public bool Disabled { get; set; } = false;
+    [Parameter] public Profile? profile { get; set; }
+    [Parameter] public string ButtonText { get; set; } = "Save";
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+
+    private IList<Profile>? Profiles;
+
+    protected async override Task OnInitializedAsync()
+    {
+        Profiles = await _client.GetFromJsonAsync<List<Profile>>($"{Endpoints.ProfilesEndpoint}");
+    }
+
+
+    async Task OnFileChange(InputFileChangeEventArgs e)
+    {
+        var format = "image/png";
+        var resizedImage = await e.File.RequestImageFileAsync(format, 200, 200);
+        var buffer = new byte[resizedImage.Size];
+        await resizedImage.OpenReadStream().ReadAsync(buffer);
+        var imageData = $"data:{format};base64,{Convert.ToBase64String(buffer)}";
+        profile.Image = imageData;
+    }
+}
