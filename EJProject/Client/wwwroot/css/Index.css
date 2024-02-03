@@ -20,10 +20,10 @@
         font-size: 18px;
     }
 
-    #header .Logo {
-        border-radius: 10px; /* Rounded corners */
-        max-width: 200px; /* Adjusted max-width */
-        height: auto; /* Maintain aspect ratio */
+    .Logo {
+        border-radius: 10px; 
+        max-width: 200px; 
+        height: auto; 
     }
 
 #searchForm {
