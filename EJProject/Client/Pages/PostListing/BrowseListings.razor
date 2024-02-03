@@ -85,8 +85,8 @@ else
                 <td>@product.Category</td>
                 <td>@product.Price</td>
                 <td>@product.Condition</td>
-                    <td><img src="@product.Image" class="rounded" style="max-height: 100px;" onclick="openModal('@product.Image')" /></td>
-                <td>@product.Description</td>
+                    <td><a href="/ListingsPage/view/@product.ProductID"><img src="@product.Image" class="rounded" style="max-height: 100px;" onclick="openModal('@product.Image')" /></a></td>
+                    <td>@product.Description</td>
 
                 <td>
                     <a href="/ListingsPage/view/@product.ProductID" class="btn btn-primary">

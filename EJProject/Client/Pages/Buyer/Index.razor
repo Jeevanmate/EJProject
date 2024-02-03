@@ -13,6 +13,11 @@
 <br />
 <br />
 <link rel="stylesheet" href="/css/Buyer.css" />
+
+<div>
+    <InputText @bind-Value="@inputTextBox" class="form-control" label="password" />
+</div>
+<br />
 @if (Buyers == null)
 {
     <div class="alert alert-info">Loading Buyers...</div>
@@ -20,37 +25,53 @@
 
 else
 {
-    <table class="table table-responsive" id="buyersTable">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var buyer in Buyers)
-            {
+    @if (@inputTextBox == "irfan")
+    {
+        <table class="table table-responsive" id="buyersTable">
+            <thead>
                 <tr>
-                    <td>@buyer.Name</td>
-                    <td>
-                        <a href="/buyers/view/@buyer.BuyerID" class="btn btn-primary">
-                            <span class="oi oi-book"></span>
-                        </a>
-                        <a href="/buyers/edit/@buyer.BuyerID" class="btn btn-warning">
-                            <span class="oi oi-pencil"></span>
-                        </a>
-                        <button class="btn btn-danger" @onclick="@(()=>Delete(buyer.BuyerID))">
-                            <span class="oi oi-delete"></span>
-                        </button>
-                    </td>
+                    <th>Name</th>
+                    <th>Actions</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var buyer in Buyers)
+                {
+                    <tr>
+                        <td>@buyer.Name</td>
+                        <td>
+                            <a href="/buyers/view/@buyer.BuyerID" class="btn btn-primary">
+                                <span class="oi oi-book"></span>
+                            </a>
+                            <a href="/buyers/edit/@buyer.BuyerID" class="btn btn-warning">
+                                <span class="oi oi-pencil"></span>
+                            </a>
+                            <button class="btn btn-danger" @onclick="@(()=>Delete(buyer.BuyerID))">
+                                <span class="oi oi-delete"></span>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else if (@inputTextBox is null)
+    {
+        <div>
+            <p> Input Password to see Profiles.</p>
+        </div>
+    }
+    else
+    {
+        <div>
+            <p> Wrong password! Try again.</p>
+        </div>
+    }
 }
 
 
 @code {
+    private string inputTextBox;
 
     private List<Buyer>? Buyers;
 

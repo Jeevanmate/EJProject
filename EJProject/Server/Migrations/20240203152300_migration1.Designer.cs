@@ -12,13 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EJProject.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-<<<<<<<< HEAD:EJProject/Server/Migrations/20240203113418_newdb.Designer.cs
-    [Migration("20240203113418_newdb")]
-    partial class newdb
-========
-    [Migration("20240202172751_NEWDB")]
-    partial class NEWDB
->>>>>>>> 47b1d7b4f54fefe23fbf3b592dda81c464b506a5:EJProject/Server/Migrations/20240202172751_NEWDB.Designer.cs
+    [Migration("20240203152300_migration1")]
+    partial class migration1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -246,11 +241,7 @@ namespace EJProject.Server.Migrations
                         {
                             Id = "3781efa7-66dc-47f0-860f-e506d04102e4",
                             AccessFailedCount = 0,
-<<<<<<<< HEAD:EJProject/Server/Migrations/20240203113418_newdb.Designer.cs
-                            ConcurrencyStamp = "f227599e-f76a-4afc-ac84-6c84fa0aebff",
-========
-                            ConcurrencyStamp = "76ad4a5f-91ae-4df4-bc46-2334b94781fc",
->>>>>>>> 47b1d7b4f54fefe23fbf3b592dda81c464b506a5:EJProject/Server/Migrations/20240202172751_NEWDB.Designer.cs
+                            ConcurrencyStamp = "0a0a408d-db2e-44cb-ad80-441eca119524",
                             Email = "admin@localhost.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
@@ -259,11 +250,7 @@ namespace EJProject.Server.Migrations
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN@LOCALHOST.COM",
                             PhoneNumberConfirmed = false,
-<<<<<<<< HEAD:EJProject/Server/Migrations/20240203113418_newdb.Designer.cs
-                            SecurityStamp = "89941022-c71d-466e-be24-a9aaba40779c",
-========
-                            SecurityStamp = "78adde56-773a-4835-94a8-4e3786e19920",
->>>>>>>> 47b1d7b4f54fefe23fbf3b592dda81c464b506a5:EJProject/Server/Migrations/20240202172751_NEWDB.Designer.cs
+                            SecurityStamp = "95c5bb07-5206-4065-a18f-1c78e29d4570",
                             TwoFactorEnabled = false,
                             UserName = "admin@localhost.com"
                         });

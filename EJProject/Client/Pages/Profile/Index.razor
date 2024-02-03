@@ -16,6 +16,11 @@
 <br />
 <br />
 <link rel="stylesheet" href="/css/Profile.css" />
+
+<div>
+    <InputText @bind-Value="@inputTextBox" class="form-control" label="password" />
+</div>
+<br />
 @if (Profiles == null)
 {
     <div class="alert alert-info">Loading Profiles...</div>
@@ -23,6 +28,7 @@
 
 else
 {
+    @if(inputTextBox == "clarentan"){
     <table class="table table-responsive" id="profilesTable">
         <thead>
             <tr>
@@ -57,10 +63,26 @@ else
                 </tr>
             }
         </tbody>
-    </table>
+        </table>
+
+
+    }
+    else if(@inputTextBox is null)
+    {
+        <div>
+            <p> Input Password to see Profiles.</p>
+        </div>
+    }
+    else
+    {
+        <div>
+            <p> Wrong password! Try again.</p>
+       </div>
+    }
 }
 
 @code {
+    private string inputTextBox;
     private List<Profile>? Profiles;
 
     protected async override Task OnInitializedAsync()
