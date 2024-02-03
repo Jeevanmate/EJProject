@@ -238,7 +238,7 @@ namespace EJProject.Server.Migrations
                         {
                             Id = "3781efa7-66dc-47f0-860f-e506d04102e4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "76ad4a5f-91ae-4df4-bc46-2334b94781fc",
+                            ConcurrencyStamp = "f227599e-f76a-4afc-ac84-6c84fa0aebff",
                             Email = "admin@localhost.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
@@ -247,7 +247,7 @@ namespace EJProject.Server.Migrations
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN@LOCALHOST.COM",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "78adde56-773a-4835-94a8-4e3786e19920",
+                            SecurityStamp = "89941022-c71d-466e-be24-a9aaba40779c",
                             TwoFactorEnabled = false,
                             UserName = "admin@localhost.com"
                         });
