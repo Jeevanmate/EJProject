@@ -19,6 +19,19 @@
 
 
 <body>
+    <script>
+        function openModal(imageUrl) {
+            var modal = document.getElementById("imageModal");
+            var modalImage = document.getElementById("modalImage");
+            modalImage.src = imageUrl;
+            modal.style.display = "block";
+        }
+
+        function closeModal() {
+            var modal = document.getElementById("imageModal");
+            modal.style.display = "none";
+        }
+    </script>
     <div id="D1">
         <div id="D2">
             <h2>Listings</h2>
@@ -27,6 +40,10 @@
         <div id="D3">
             <p>View by Category</p>
         </div>
+    </div>
+    <div id="imageModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img id="modalImage" class="modal-content" />
     </div>
 </body>
 </html>
@@ -68,7 +85,7 @@ else
                 <td>@product.Category</td>
                 <td>@product.Price</td>
                 <td>@product.Condition</td>
-                <td><img src = "@product.Image" class="rounded" style="max-height: 100px;" /></td>
+                    <td><img src="@product.Image" class="rounded" style="max-height: 100px;" onclick="openModal('@product.Image')" /></td>
                 <td>@product.Description</td>
 
                 <td>
@@ -86,6 +103,9 @@ else
         }
         </tbody>
     </table>
+    
+
+   
 }
 
 
@@ -93,8 +113,6 @@ else
 
     private List<Product>? Products;
 
-    [Inject]
-    private IHttpAnonymousClientFactory httpAnonymousClientFactory { get; set; }
 
 
     protected async override Task OnInitializedAsync()

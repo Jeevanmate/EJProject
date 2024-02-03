@@ -73,12 +73,13 @@
 }
 
     .featureBox img {
-        border-radius: 10px; /* Adjusted border-radius */
-        max-width: 100%; /* Make image responsive */
-        height: auto;
+        border-radius: 10px;
+        width: 200px; /* Set a fixed width */
+        height: 180px; /* Set a fixed height */
         object-fit: cover;
         margin-bottom: 10px;
     }
+
 
     .featureBox h4 {
         margin: 10px 0;
