@@ -1,10 +1,10 @@
 ﻿@page "/ChatPage"
 @inject NavigationManager NavigationManager
 @inject AuthenticationStateProvider authStateProvider
-
+@attribute [Authorize]
 
 <h3>Chat Here</h3>
-
+<link rel="stylesheet" href="/css/Chat.css" />
 @if (IsConnected)
 {
     @if (@authStateProvider.GetAuthenticationStateAsync().Result.User.Identity.Name is not null)
