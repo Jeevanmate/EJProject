@@ -9,12 +9,15 @@ using EJProject.Server.Data;
 using EJProject.Shared.Domain;
 using EJProject.Server.IRepository;
 
+
 namespace EJProject.Server.Controllers
 {
+
     [Route("api/[controller]")]
     [ApiController]
     public class ProductsController : ControllerBase
     {
+
         //Refactored
         //private readonly ApplicationDbContext _context;
         private readonly IUnitOfWork _unitOfWork;

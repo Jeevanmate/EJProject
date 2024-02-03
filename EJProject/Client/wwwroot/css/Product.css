@@ -1,0 +1,97 @@
+﻿body {
+    background-color: #48CAE4;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+#D1 {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 1s ease-in-out; /* Fade-in animation */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+#D2 {
+    background-color: #343a40;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+#D3 p {
+    font-size: 18px;
+    color: #007BFF;
+    margin-bottom: 10px;
+}
+
+.btn-secondary {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    transition: background-color 0.3s ease-in-out; /* Smooth color transition */
+}
+
+    .btn-secondary:hover {
+        background-color: #0056b3;
+    }
+
+.table {
+    background-color: #ff0000;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+    .table th,
+    .table td {
+        text-align: center;
+        padding: 10px;
+    }
+
+    .table th {
+        background-color: #343a40;
+        color: #fff;
+    }
+
+    .table tbody tr:nth-child(odd) {
+        background-color: #f8f9fa;
+    }
+
+    .table tbody tr:hover {
+        background-color: #d6d8db;
+        transition: background-color 0.3s ease-in-out; /* Smooth color transition on hover */
+    }
+
+.rounded {
+    border-radius: 5px;
+}
+
+.alert-info {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+}
+
+    .alert-info a {
+        color: #fff;
+        text-decoration: underline;
+    }
+
+        .alert-info a:hover {
+            text-decoration: none;
+        }

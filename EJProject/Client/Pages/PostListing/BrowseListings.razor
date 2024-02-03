@@ -12,36 +12,14 @@
 <head>
     <meta charset="utf-8">
     <title>Listings</title>
-    <style>
-        #D1 {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
-            height: 35vh; /*the percentage amount that the div is taking up of this whole webpage*/
-            background-color: #F1b04c;
-           
-        }
-
-        #D2 {
-            background-color: #F5C77E;
-            border-radius: 25px;
-            height: 30px;
-           
-        }
-
-        #D3 {
-            background-color: #F9DDB1;
-            border-radius: 25px;
-            height:30px;
-        }
-    </style>
+    <link rel="stylesheet" href="/css/Product.css" />
+    
+    
 </head>
 
 
 <body>
     <div id="D1">
-        
         <div id="D2">
             <h2>Listings</h2>
         </div>
@@ -115,10 +93,18 @@ else
 
     private List<Product>? Products;
 
+    [Inject]
+    private IHttpAnonymousClientFactory httpAnonymousClientFactory { get; set; }
+
+
     protected async override Task OnInitializedAsync()
     {
         _interceptor.MonitorEvent();
         Products = await _client.GetFromJsonAsync<List<Product>>($"{Endpoints.ProductsEndpoint}");
+        
+       
+        
+        
     }
 
 
