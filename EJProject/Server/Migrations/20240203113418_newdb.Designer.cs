@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EJProject.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240127193526_Images")]
-    partial class Images
+    [Migration("20240203113418_newdb")]
+    partial class newdb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -241,7 +241,7 @@ namespace EJProject.Server.Migrations
                         {
                             Id = "3781efa7-66dc-47f0-860f-e506d04102e4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "457c24f4-5c91-484a-9a3b-2e85ae72cc01",
+                            ConcurrencyStamp = "f227599e-f76a-4afc-ac84-6c84fa0aebff",
                             Email = "admin@localhost.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
@@ -250,7 +250,7 @@ namespace EJProject.Server.Migrations
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN@LOCALHOST.COM",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "07149918-6d0d-4dab-b97c-117cf405dfb4",
+                            SecurityStamp = "89941022-c71d-466e-be24-a9aaba40779c",
                             TwoFactorEnabled = false,
                             UserName = "admin@localhost.com"
                         });
@@ -365,6 +365,42 @@ namespace EJProject.Server.Migrations
                             ProductName = "Ralph Lauren Shirt",
                             SellerID = 2
                         });
+                });
+
+            modelBuilder.Entity("EJProject.Shared.Domain.Profile", b =>
+                {
+                    b.Property<int>("ProfileID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProfileID"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasMaxLength(6)
+                        .HasColumnType("nvarchar(6)");
+
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ProfileID");
+
+                    b.ToTable("Profiles");
                 });
 
             modelBuilder.Entity("EJProject.Shared.Domain.Seller", b =>
