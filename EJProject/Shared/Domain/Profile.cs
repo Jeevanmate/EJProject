@@ -11,8 +11,7 @@ namespace EJProject.Shared.Domain
     {
         public int ProfileID { get; set; }
 
-        [Required]
-        [StringLength(10, MinimumLength = 4, ErrorMessage = "Gender does not meet the length requirements")]
+        
         public string? Gender { get; set; }
         [Required]
         [DataType(DataType.PhoneNumber)]

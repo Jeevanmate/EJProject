@@ -11,8 +11,6 @@ namespace EJProject.Shared.Domain
     {
         public int StaffID { get; set; }
 
-        [Required]
-        [StringLength(6, MinimumLength = 4, ErrorMessage = "Gender does not meet the length requirements")]
         public string? Gender { get; set; }
 
         [Required]

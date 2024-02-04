@@ -39,7 +39,10 @@ body {
     }
 
     .table tbody tr:nth-child(odd) {
-        background-color: #f8f9fa; /* Odd row background color */
+        background-color: #343a40 /* Odd row background color */
+    }
+    .table tbody tr:nth-child(even) {
+        background-color: #000000; /* Odd row background color */
     }
 
     .table tbody tr:hover {

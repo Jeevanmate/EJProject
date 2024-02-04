@@ -54,6 +54,23 @@
             <ValidationMessage For="@(() => trade.PaymentMethod )" />
         </div>
     </div>
+
+        <div class="form-group">
+            <label>Payment Method:</label>
+            <div>
+                <InputSelect @bind-Value="trade.PaymentMethod" class="form-control">
+                    <option value="">-- Select Payment Method --</option>
+
+                    <option value="Cash">Cash</option>
+                    <option value="Paynow"> Paynow</option>
+                    <option value="Nets">Nets</option>
+                    <option value="Cryptocurrency">Cryptocurrency</option>
+                    <option value="Bank Transfer">Bank Transfer</option>
+
+                </InputSelect>
+                <ValidationMessage For="@(() => trade.PaymentMethod)" />
+            </div>
+        </div>
     </fieldset>
     @if(!Disabled)
     {

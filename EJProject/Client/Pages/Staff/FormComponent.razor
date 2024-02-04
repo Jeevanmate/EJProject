@@ -14,10 +14,16 @@
         </div>
 
         <div class="form-group">
-            <label>Gender: </label>
+            <label>Gender:</label>
             <div>
-                <InputText @bind-Value="@staff.Gender" class="form-control" />
-                <ValidationMessage For="@(() => staff.Gender )" />
+                <InputSelect @bind-Value="staff.Gender" class="form-control">
+                    <option value="">-- Select Gender --</option>
+
+                    <option value=" Male"> Male</option>
+                    <option value=" Female"> Female</option>
+                    <option value=" Others">Others </option>
+                </InputSelect>
+                <ValidationMessage For="@(() => staff.Gender)" />
             </div>
         </div>
 

@@ -15,8 +15,6 @@ namespace EJProject.Shared.Domain
         [StringLength(50, MinimumLength = 2, ErrorMessage = "Product Name does not meet length requirements")]
         public string? ProductName { get; set; }
 
-        [Required]
-        [StringLength(20, MinimumLength = 2, ErrorMessage = " Category does not meet length requirements")]
         public string? Category { get; set; }
 
         [Required]
