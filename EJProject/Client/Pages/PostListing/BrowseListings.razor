@@ -13,11 +13,7 @@
     <meta charset="utf-8">
     <title>Listings</title>
     <link rel="stylesheet" href="/css/Product.css" />
-    
-    
 </head>
-
-
 <body>
     <script>
         function openModal(imageUrl) {
@@ -56,6 +52,8 @@
 <br />
 <br />
 
+
+
 @if (Products == null)
 {
     <div class="alert alert-info">Loading Products...</div>
@@ -63,54 +61,131 @@
 
 else
 {
-    <table class="table table-responsive" id="productsTable">
-        <thead>
-            <tr>
-                <th>Seller:</th>
-                <th>Product:</th>
-                <th>Category:</th>
-                <th>Price:</th>
-                <th>Condition:</th>
-                <th>Image:</th>
-                <th>Description:</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var product in Products)
+    <div>
+         <button class="btn btn-primary" @onclick="@(() => SetViewStatus("View"))">View Products</button>
+        <button class="btn btn-warning" @onclick="@(() => SetViewStatus("Edit"))">Edit Products</button>
+        <div>
+            <InputText @bind-Value="@inputTextBox" class="form-control" label="password" />
+        </div>
+       
+    </div>
+    @if (ViewingStatus == "View")
+    {
+        
+        <table class="table table-responsive" id="productsTable">
+            <thead>
+                <tr>
+                    <th>Seller:</th>
+                    <th>Product:</th>
+                    <th>Category:</th>
+                    <th>Price:</th>
+                    <th>Condition:</th>
+                    <th>Image:</th>
+                    <th>Description:</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var product in Products)
+                {
+                    <tr>
+                        <td>@product.Seller.Name</td>
+                        <td>@product.ProductName</td>
+                        <td>@product.Category</td>
+                        <td>@product.Price</td>
+                        <td>@product.Condition</td>
+                        <td><a href="/ListingsPage/view/@product.ProductID"><img src="@product.Image" class="rounded" style="max-height: 100px;" onclick="openModal('@product.Image')" /></a></td>
+                        <td>@product.Description</td>
+
+                        <td>
+                            <a href="/ListingsPage/view/@product.ProductID" class="btn btn-primary">
+                                <span class="oi oi-book"></span>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+     
+    }
+    else if (ViewingStatus == "Edit")
+    {
+        @if (@inputTextBox == "Permission" || inputTextBox == "permission")
         {
-            <tr>
-                <td>@product.Seller.Name</td>
-                <td>@product.ProductName</td>
-                <td>@product.Category</td>
-                <td>@product.Price</td>
-                <td>@product.Condition</td>
-                    <td><a href="/ListingsPage/view/@product.ProductID"><img src="@product.Image" class="rounded" style="max-height: 100px;" onclick="openModal('@product.Image')" /></a></td>
-                    <td>@product.Description</td>
+            <table class="table table-responsive" id="productsTable">
+                <thead>
+                    <tr>
+                        <th>Seller:</th>
+                        <th>Product:</th>
+                        <th>Category:</th>
+                        <th>Price:</th>
+                        <th>Condition:</th>
+                        <th>Image:</th>
+                        <th>Description:</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var product in Products)
+                    {
+                        <tr>
+                            <td>@product.Seller.Name</td>
+                            <td>@product.ProductName</td>
+                            <td>@product.Category</td>
+                            <td>@product.Price</td>
+                            <td>@product.Condition</td>
+                            <td><a href="/ListingsPage/view/@product.ProductID"><img src="@product.Image" class="rounded" style="max-height: 100px;" onclick="openModal('@product.Image')" /></a></td>
+                            <td>@product.Description</td>
 
-                <td>
-                    <a href="/ListingsPage/view/@product.ProductID" class="btn btn-primary">
-                        <span class="oi oi-book"></span>
-                    </a>
-                    <a href="/ListingsPage/edit/@product.ProductID" class="btn btn-warning">
-                        <span class="oi oi-pencil"></span>
-                    </a>
-                    <button class="btn btn-danger" @onclick="@(()=>Delete(product.ProductID))">
-                        <span class="oi oi-delete"></span>
-                    </button>
-                </td>
-            </tr>
+                            <td>
+                                <a href="/ListingsPage/view/@product.ProductID" class="btn btn-primary">
+                                    <span class="oi oi-book"></span>
+                                </a>
+                                <a href="/ListingsPage/edit/@product.ProductID" class="btn btn-warning">
+                                    <span class="oi oi-pencil"></span>
+                                </a>
+                                <button class="btn btn-danger" @onclick="@(()=>Delete(product.ProductID))">
+                                    <span class="oi oi-delete"></span>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         }
-        </tbody>
-    </table>
-    
+        else if (inputTextBox == null)
+        {
+            <div>
+                <p>
+                    You are required to enter a password to get the permission to edit or delete products
+                </p>
+            </div>
+        }
+        else
+        {
+            <div>
+                <p>
+                    Wrong password. Try again
+                </p>
+            </div>
+        }
 
+    }
+    
    
 }
 
 
 @code{
-
+    private string inputTextBox;
+    private string ViewingStatus;
+    
+    private void SetViewStatus(string status)
+    {
+        ViewingStatus = status;
+    }
+    
+    
     private List<Product>? Products;
 
 
@@ -142,6 +217,7 @@ else
 
     protected async override Task OnAfterRenderAsync(bool firstRender)
     {
+      
         await js.InvokeVoidAsync("AddDataTable", "#productsTable");
     }
 

@@ -31,15 +31,31 @@
             <ValidationMessage For="@(() =>product.Price )" />
         </div>
     </div>
-
-    <div class="form-group">
-        <label>Category: </label>
-        <div>
-            <InputText @bind-Value="@product.Category" class="form-control" />
-            <ValidationMessage For="@(() => product.Category)" />
+        <div class="form-group">
+            <label>Category</label>
+            <div>
+                <InputSelect @bind-Value="product.Category" class="form-control">
+                    <option value="">-- Select Category --</option>
+                    <option value="Electronics">Electronics</option>
+                    <option value="Toys">Toys</option>
+                    <option value="
+                    Clothing & Accessories">
+                        Clothing & Accessories
+                    </option>
+                    <option value="  Furniture">  Furniture</option>
+                    <option value=" Home & Kitchen Appliances"> Home & Kitchen Appliances</option>
+                    <option value="  Books & Magazines">  Books & Magazines</option>
+                    <option value="  Toys & Games">  Toys & Games</option>
+                    <option value="Sports & Outdoor Equipment">Sports & Outdoor Equipment</option>
+                    <option value="
+                    Beauty & Personal Care">
+                        Beauty & Personal Care
+                    </option>
+                    <option value=" Jewellery & Watches"> Jewellery & Watches</option>
+                </InputSelect>
+                <ValidationMessage For="@(() => product.Category)" />
+            </div>
         </div>
-    </div>
-
     <div class="form-group">
         <label>Condition: </label>
         <div>
