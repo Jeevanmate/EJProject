@@ -28,7 +28,7 @@
 
 else
 {
-    @if (inputTextBox == "clarentan" || inputTextBox == "Clarentan")
+    @if (inputTextBox == "clarence" || inputTextBox == "Clarence")
     {
     <table class="table table-responsive" id="profilesTable">
         <thead>
@@ -49,7 +49,7 @@ else
                     <td>@profile.Gender</td>
                     <td>@profile.PhoneNumber</td>
                     <td>@profile.Description</td>
-                    <td><img src="@profile.Image" class="rounded" style="max-height: 100px;" /></td>
+                        <td><a href="/profiles/view/@profile.ProfileID"><img src="@profile.Image" class="rounded" style="max-height: 100px;" /></a></td>
                     <td>
                         <a href="/profiles/view/@profile.ProfileID" class="btn btn-primary">
                             <span class="oi oi-book"></span>
