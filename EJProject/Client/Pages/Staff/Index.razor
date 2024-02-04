@@ -14,42 +14,67 @@
 
 <link rel="stylesheet" href="/css/Staff.css" />
 
+<div>
+    <InputText @bind-Value="@inputTextBox" class="form-control" label="password" />
+</div>
 @if (Staffs == null)
 {
     <div class="alert alert-info">Loading Staffs...</div>
 }
 else
 {
-    <table class="table table-responsive" id="staffsTable">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var staff in Staffs)
-            {
+    @if(@inputTextBox == "Eusouf" || inputTextBox == "eusouf")
+    {
+        <table class="table table-responsive" id="staffsTable">
+            <thead>
                 <tr>
-                    <td>@staff.Name</td>
-                    <td>
-                        <a href="/staffs/view/@staff.StaffID" class="btn btn-primary">
-                            <span class="oi oi-book"></span>
-                        </a>
-                        <a href="/staffs/edit/@staff.StaffID" class="btn btn-warning">
-                            <span class="oi oi-pencil"></span>
-                        </a>
-                        <button class="btn btn-danger" @onclick="@(()=>Delete(staff.StaffID))">
-                            <span class="oi oi-delete"></span>
-                        </button>
-                    </td>
+                    <th>Name</th>
+                    <th>Position</th>
+                    <th>Actions</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var staff in Staffs)
+                {
+                    <tr>
+                        <td>@staff.Name</td>
+                        <td>@staff.Position</td>
+                        <td>
+                            <a href="/staffs/view/@staff.StaffID" class="btn btn-primary">
+                                <span class="oi oi-book"></span>
+                            </a>
+                            <a href="/staffs/edit/@staff.StaffID" class="btn btn-warning">
+                                <span class="oi oi-pencil"></span>
+                            </a>
+                            <button class="btn btn-danger" @onclick="@(()=>Delete(staff.StaffID))">
+                                <span class="oi oi-delete"></span>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else if(inputTextBox == null)
+    {
+        <div>
+            <p>
+                Please enter a password to view all available staff. Thank you
+            </p>
+        </div>
+    }
+    else
+    {
+        <div>
+            <p>
+                Wrong Password. Please try again if you are authorized to view Staff.
+            </p>
+        </div>
+    }
 }
 
 @code {
+    private string inputTextBox;
     private List<Staff>? Staffs;
 
     protected async override Task OnInitializedAsync()
