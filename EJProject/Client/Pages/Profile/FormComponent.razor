@@ -11,14 +11,15 @@
                 <ValidationMessage For="@(() => profile.Name )" />
             </div>
         </div>
+
         <div class="form-group">
             <label>Gender:</label>
             <div>
                 <InputSelect @bind-Value="profile.Gender" class="form-control">
                     <option value="">-- Select Gender --</option>
 
-                    <option value=" Male">Male</option>
-                    <option value=" Female">Female</option>
+                    <option value=" Male"> Male</option>
+                    <option value=" Female"> Female</option>
                     <option value=" Others">Others </option>
                 </InputSelect>
                 <ValidationMessage For="@(() => profile.Gender)" />
