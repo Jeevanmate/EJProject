@@ -47,7 +47,7 @@
 
 <a href="/ListingsPage/create" class="btn btn-secondary">
     <span class="oi oi-plus"></span>
-    Create New Listing 
+    Create New Listing
 </a>
 <br />
 <br />
@@ -62,16 +62,17 @@
 else
 {
     <div>
-         <button class="btn btn-primary" @onclick="@(() => SetViewStatus("View"))">View Products</button>
+        <button class="btn btn-primary" @onclick="@(() => SetViewStatus("View"))">View Products</button>
         <button class="btn btn-warning" @onclick="@(() => SetViewStatus("Edit"))">Edit Products</button>
         <div>
             <InputText @bind-Value="@inputTextBox" class="form-control" label="password" />
         </div>
-       
+        <p>Please enter password to gain access to edit and delete products</p>
+
     </div>
     @if (ViewingStatus == "View")
     {
-        
+
         <table class="table table-responsive" id="productsTable">
             <thead>
                 <tr>
@@ -106,7 +107,7 @@ else
                 }
             </tbody>
         </table>
-     
+
     }
     else if (ViewingStatus == "Edit")
     {
@@ -171,21 +172,22 @@ else
         }
 
     }
-    
-   
+
+
 }
 
 
-@code{
+@code {
     private string inputTextBox;
     private string ViewingStatus;
-    
+    private bool isDataTableInitialized = false;
+
     private void SetViewStatus(string status)
     {
         ViewingStatus = status;
     }
-    
-    
+
+
     private List<Product>? Products;
 
 
@@ -194,10 +196,15 @@ else
     {
         _interceptor.MonitorEvent();
         Products = await _client.GetFromJsonAsync<List<Product>>($"{Endpoints.ProductsEndpoint}");
-        
-       
-        
-        
+
+        if (!isDataTableInitialized && Products != null)
+        {
+            Console.WriteLine("Initializing DataTable");
+            await js.InvokeVoidAsync("AddDataTable", "#productsTable");
+            isDataTableInitialized = true;
+        }
+
+
     }
 
 
@@ -210,19 +217,25 @@ else
             if (confirm)
             {
                 await _client.DeleteAsync($"{Endpoints.ProductsEndpoint}/{productId}");
-                await OnInitializedAsync(); 
+                await OnInitializedAsync();
             }
         }
     }
 
     protected async override Task OnAfterRenderAsync(bool firstRender)
     {
-      
-        await js.InvokeVoidAsync("AddDataTable", "#productsTable");
+        if (firstRender && isDataTableInitialized)
+        {
+            await js.InvokeVoidAsync("AddDataTable", "#productsTable");
+        }
     }
 
     public void Dispose()
     {
-        js.InvokeVoidAsync("DataTablesDispose", "#productsTable");
+        if (isDataTableInitialized)
+        {
+            Console.WriteLine("Disposing DataTable");
+            js.InvokeVoidAsync("DataTablesDispose", "#productsTable");
+        }
     }
 }
